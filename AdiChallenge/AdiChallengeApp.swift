@@ -10,8 +10,11 @@ import SwiftUI
 @main
 struct AdiChallengeApp: App {
     var body: some Scene {
+        
         WindowGroup {
-            ProductsView()
+            
+            ProductListView()
+            
         }
     }
 }

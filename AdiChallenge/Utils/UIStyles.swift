@@ -20,9 +20,10 @@ struct PrimaryTextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(colorScheme == .dark ? .primary : .gray)
-            .font(.custom(Fonts.Graphik_Title,
-                          size: Fonts.Graphik_Title_Size,
+            .font(.custom(Fonts.kFontTitleName,
+                          size: Fonts.kFontTitleSize,
                           relativeTo: .headline))
+            .minimumScaleFactor(0.5)
     }
 }
 
@@ -32,8 +33,9 @@ struct SecondaryTextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(colorScheme == .dark ? .white : .black)
-            .font(.custom(Fonts.Graphik_Title,
-                          size: Fonts.Graphik_Title_Size,
+            .font(.custom(Fonts.kFontTitleName,
+                          size: Fonts.kFontTitleSize,
                           relativeTo: .headline))
+            .minimumScaleFactor(0.5)
     }
 }

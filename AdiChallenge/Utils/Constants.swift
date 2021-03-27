@@ -9,6 +9,14 @@ import Foundation
 import CoreGraphics
 
 struct Fonts {
-    static var Graphik_Title = "Graphik-Light"
-    static var Graphik_Title_Size: CGFloat          = 12.0
+    
+    static var kFontTitleName: String   = "Graphik-Light"
+    
+    static var kFontTitleSize: CGFloat  = 20.0
+}
+
+struct Constants {
+    
+    static var kMaximumNumberOfRreviewRating: Int   = 5
+    
 }

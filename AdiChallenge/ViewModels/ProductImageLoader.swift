@@ -10,6 +10,7 @@ import Combine
 import UIKit
 
 class ProductImageLoader: ObservableObject {
+    
     @Published var image: UIImage?
     
     private static let imageDownloadingQueue = DispatchQueue(label: "com.adichallenge.image-downloading.queue")
@@ -17,23 +18,31 @@ class ProductImageLoader: ObservableObject {
     private(set) var isLoading = false
     
     private let url: URL
+    
     private var cache: ProductImageCache?
+    
     private var cancellable: AnyCancellable?
     
     init(url: URL, cache: ProductImageCache? = nil) {
-        self.url = url
-        self.cache = cache
+        self.url    = url
+        self.cache  = cache
     }
     
     deinit {
+        
         cancel()
+        
     }
     
     func load() {
         guard !isLoading else { return }
         
         if let image = cache?[url] {
+            
             self.image = image
+            
+            LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image cached available: \(self.url, privacy: .public)")
+            
             return
         }
         
@@ -51,18 +60,33 @@ class ProductImageLoader: ObservableObject {
     }
     
     func cancel() {
+        
         cancellable?.cancel()
+        
+        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download cancelled: \(self.url, privacy: .public)")
+        
     }
     
     private func onStart() {
-        isLoading = true
-    }
         
+        isLoading = true
+        
+        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download started: \(self.url, privacy: .public)")
+        
+    }
+    
     private func onFinish() {
+        
         isLoading = false
+        
+        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download finished: \(self.url, privacy: .public)")
+        
     }
     
     private func cache(_ image: UIImage?) {
+        
         image.map { cache?[url] = $0 }
+        
+        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image downloaded cache: \(self.url, privacy: .public)")
     }
 }
