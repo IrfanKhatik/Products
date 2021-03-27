@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0142FE3E260F2E1000229314 /* UIStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0142FE3D260F2E1000229314 /* UIStyles.swift */; };
 		0143CE7F260E56D4007DA2F0 /* AdiChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143CE7E260E56D4007DA2F0 /* AdiChallengeApp.swift */; };
 		0143CE81260E56D4007DA2F0 /* ProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143CE80260E56D4007DA2F0 /* ProductsView.swift */; };
 		0143CE83260E56D4007DA2F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0143CE82260E56D4007DA2F0 /* Assets.xcassets */; };
@@ -14,10 +15,21 @@
 		0143CE94260E57FE007DA2F0 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143CE93260E57FE007DA2F0 /* Product.swift */; };
 		0143CE97260E5865007DA2F0 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143CE96260E5865007DA2F0 /* ProductViewModel.swift */; };
 		0143CE9A260E5884007DA2F0 /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143CE99260E5884007DA2F0 /* ProductListViewModel.swift */; };
-		0143CEA0260E6066007DA2F0 /* ProductService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143CE9F260E6066007DA2F0 /* ProductService.swift */; };
+		0143CEA0260E6066007DA2F0 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143CE9F260E6066007DA2F0 /* NetworkService.swift */; };
+		0161B562260E991300FE83DA /* ProductViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B561260E991300FE83DA /* ProductViewCell.swift */; };
+		0161B565260E9A2800FE83DA /* ProductImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B564260E9A2800FE83DA /* ProductImageLoader.swift */; };
+		0161B56C260E9A9E00FE83DA /* ProductImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B56B260E9A9E00FE83DA /* ProductImageView.swift */; };
+		0161B576260EA84800FE83DA /* ProductImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B575260EA84800FE83DA /* ProductImageCache.swift */; };
+		0161B57A260EA86900FE83DA /* EnvironmentValues+ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B579260EA86900FE83DA /* EnvironmentValues+ImageCache.swift */; };
+		0161B57D260EB16C00FE83DA /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B57C260EB16C00FE83DA /* ProductDetailView.swift */; };
+		0161B580260EB53E00FE83DA /* AddProductReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B57F260EB53E00FE83DA /* AddProductReview.swift */; };
+		0161B583260EB8AF00FE83DA /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B582260EB8AF00FE83DA /* Review.swift */; };
+		0161B586260EBAF300FE83DA /* ProductRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B585260EBAF300FE83DA /* ProductRatingView.swift */; };
+		0161B58B260EF09400FE83DA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B58A260EF09400FE83DA /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0142FE3D260F2E1000229314 /* UIStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyles.swift; sourceTree = "<group>"; };
 		0143CE7B260E56D4007DA2F0 /* AdiChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdiChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0143CE7E260E56D4007DA2F0 /* AdiChallengeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdiChallengeApp.swift; sourceTree = "<group>"; };
 		0143CE80260E56D4007DA2F0 /* ProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsView.swift; sourceTree = "<group>"; };
@@ -27,7 +39,17 @@
 		0143CE93260E57FE007DA2F0 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		0143CE96260E5865007DA2F0 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
 		0143CE99260E5884007DA2F0 /* ProductListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListViewModel.swift; sourceTree = "<group>"; };
-		0143CE9F260E6066007DA2F0 /* ProductService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductService.swift; sourceTree = "<group>"; };
+		0143CE9F260E6066007DA2F0 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		0161B561260E991300FE83DA /* ProductViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewCell.swift; sourceTree = "<group>"; };
+		0161B564260E9A2800FE83DA /* ProductImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageLoader.swift; sourceTree = "<group>"; };
+		0161B56B260E9A9E00FE83DA /* ProductImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageView.swift; sourceTree = "<group>"; };
+		0161B575260EA84800FE83DA /* ProductImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageCache.swift; sourceTree = "<group>"; };
+		0161B579260EA86900FE83DA /* EnvironmentValues+ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+ImageCache.swift"; sourceTree = "<group>"; };
+		0161B57C260EB16C00FE83DA /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		0161B57F260EB53E00FE83DA /* AddProductReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProductReview.swift; sourceTree = "<group>"; };
+		0161B582260EB8AF00FE83DA /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		0161B585260EBAF300FE83DA /* ProductRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRatingView.swift; sourceTree = "<group>"; };
+		0161B58A260EF09400FE83DA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +83,9 @@
 			isa = PBXGroup;
 			children = (
 				0143CE7E260E56D4007DA2F0 /* AdiChallengeApp.swift */,
-				0143CE80260E56D4007DA2F0 /* ProductsView.swift */,
+				0161B589260EF08700FE83DA /* Utils */,
+				0161B574260EA82D00FE83DA /* Cache */,
+				0161B55B260E8AAD00FE83DA /* Views */,
 				0161B556260E70D600FE83DA /* Model */,
 				0161B552260E70B100FE83DA /* Network */,
 				0161B554260E70CB00FE83DA /* ViewModels */,
@@ -83,7 +107,7 @@
 		0161B552260E70B100FE83DA /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				0143CE9F260E6066007DA2F0 /* ProductService.swift */,
+				0143CE9F260E6066007DA2F0 /* NetworkService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -93,6 +117,7 @@
 			children = (
 				0143CE99260E5884007DA2F0 /* ProductListViewModel.swift */,
 				0143CE96260E5865007DA2F0 /* ProductViewModel.swift */,
+				0161B564260E9A2800FE83DA /* ProductImageLoader.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -101,8 +126,40 @@
 			isa = PBXGroup;
 			children = (
 				0143CE93260E57FE007DA2F0 /* Product.swift */,
+				0161B582260EB8AF00FE83DA /* Review.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0161B55B260E8AAD00FE83DA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0143CE80260E56D4007DA2F0 /* ProductsView.swift */,
+				0161B561260E991300FE83DA /* ProductViewCell.swift */,
+				0161B56B260E9A9E00FE83DA /* ProductImageView.swift */,
+				0161B57C260EB16C00FE83DA /* ProductDetailView.swift */,
+				0161B57F260EB53E00FE83DA /* AddProductReview.swift */,
+				0161B585260EBAF300FE83DA /* ProductRatingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0161B574260EA82D00FE83DA /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				0161B575260EA84800FE83DA /* ProductImageCache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		0161B589260EF08700FE83DA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0161B579260EA86900FE83DA /* EnvironmentValues+ImageCache.swift */,
+				0161B58A260EF09400FE83DA /* Constants.swift */,
+				0142FE3D260F2E1000229314 /* UIStyles.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,12 +231,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0161B562260E991300FE83DA /* ProductViewCell.swift in Sources */,
 				0143CE81260E56D4007DA2F0 /* ProductsView.swift in Sources */,
+				0161B576260EA84800FE83DA /* ProductImageCache.swift in Sources */,
+				0161B565260E9A2800FE83DA /* ProductImageLoader.swift in Sources */,
+				0161B586260EBAF300FE83DA /* ProductRatingView.swift in Sources */,
 				0143CE7F260E56D4007DA2F0 /* AdiChallengeApp.swift in Sources */,
+				0161B57D260EB16C00FE83DA /* ProductDetailView.swift in Sources */,
+				0161B58B260EF09400FE83DA /* Constants.swift in Sources */,
 				0143CE97260E5865007DA2F0 /* ProductViewModel.swift in Sources */,
 				0143CE9A260E5884007DA2F0 /* ProductListViewModel.swift in Sources */,
 				0143CE94260E57FE007DA2F0 /* Product.swift in Sources */,
-				0143CEA0260E6066007DA2F0 /* ProductService.swift in Sources */,
+				0161B583260EB8AF00FE83DA /* Review.swift in Sources */,
+				0161B580260EB53E00FE83DA /* AddProductReview.swift in Sources */,
+				0143CEA0260E6066007DA2F0 /* NetworkService.swift in Sources */,
+				0142FE3E260F2E1000229314 /* UIStyles.swift in Sources */,
+				0161B57A260EA86900FE83DA /* EnvironmentValues+ImageCache.swift in Sources */,
+				0161B56C260E9A9E00FE83DA /* ProductImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

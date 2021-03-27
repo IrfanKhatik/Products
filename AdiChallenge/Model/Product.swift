@@ -7,10 +7,16 @@
 
 import Foundation
 
-struct Product: Decodable, Identifiable {
-    var id: String
+struct Product: Codable, Identifiable {
+    let id: String
     let name : String
-    let image: String
-    let desc: String
+    let imgUrl: String
+    let description: String
     let price: Double?
+    let currency: String?
+    var reviews: [Review]
+    
+    mutating func addNewReview(_ review: Review) {
+        reviews.append(review)
+    }
 }
