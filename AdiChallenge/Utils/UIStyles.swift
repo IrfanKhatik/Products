@@ -14,28 +14,28 @@ extension Text {
         }
 }
 
-struct PrimaryTextStyle: ViewModifier {
+struct ProductTitleTextStyle: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
     
     func body(content: Content) -> some View {
         content
             .foregroundColor(colorScheme == .dark ? .primary : .gray)
-            .font(.custom(Fonts.kFontTitleName,
+            .font(.custom(Fonts.kDefaultFontName,
                           size: Fonts.kFontTitleSize,
-                          relativeTo: .headline))
+                          relativeTo: .caption))
             .minimumScaleFactor(0.5)
     }
 }
 
-struct SecondaryTextStyle: ViewModifier {
+struct ProductDesciptionTextStyle: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
     
     func body(content: Content) -> some View {
         content
             .foregroundColor(colorScheme == .dark ? .white : .black)
-            .font(.custom(Fonts.kFontTitleName,
-                          size: Fonts.kFontTitleSize,
-                          relativeTo: .headline))
+            .font(.custom(Fonts.kDefaultFontName,
+                          size: Fonts.kFontDescSize,
+                          relativeTo: .body))
             .minimumScaleFactor(0.5)
     }
 }

@@ -30,19 +30,19 @@ class ProductViewModel: ObservableObject, Identifiable {
     
     var id: String {
         
-        return product.id
+        return product.id ?? ""
         
     }
     
     var name: String {
         
-        return product.name
+        return product.name?.capitalized ?? ""
         
     }
     
     var imageUrl : String {
         
-        return product.imgUrl
+        return product.imgUrl ?? ""
         
     }
     
@@ -51,7 +51,8 @@ class ProductViewModel: ObservableObject, Identifiable {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         
-        if let locale = product.currency {
+        // Prepare price with provided currrency else device locale
+        if let locale = product.currency, !locale.isEmpty {
             numberFormatter.locale  = Locale(identifier: locale)
         }
         
@@ -64,13 +65,13 @@ class ProductViewModel: ObservableObject, Identifiable {
     
     var desc: String {
         
-        return product.desc
+        return product.desc?.uppercased() ?? ""
         
     }
     
     var reviews: [Review] {
         
-        return product.reviews
+        return product.reviews ?? []
         
     }
     

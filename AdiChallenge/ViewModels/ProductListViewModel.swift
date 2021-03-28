@@ -21,10 +21,6 @@ class ProductListViewModel: ObservableObject {
     
     var errorResponse = ""
     
-    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-                                .makeConnectable()
-                                .autoconnect()
-    
     private let networkService = NetworkService()
     
     private var cancellable: AnyCancellable?

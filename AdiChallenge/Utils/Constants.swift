@@ -10,9 +10,11 @@ import CoreGraphics
 
 struct Fonts {
     
-    static var kFontTitleName: String   = "Graphik-Light"
+    static var kDefaultFontName: String   = "Graphik-Light"
     
-    static var kFontTitleSize: CGFloat  = 20.0
+    static var kFontTitleSize: CGFloat  = 13.0
+    
+    static var kFontDescSize: CGFloat  = 20.0
 }
 
 struct Constants {

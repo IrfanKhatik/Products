@@ -41,7 +41,7 @@ class ProductImageLoader: ObservableObject {
             
             self.image = image
             
-            LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image cached available: \(self.url, privacy: .public)")
+            LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image cached available: \(self.url.lastPathComponent, privacy: .public)")
             
             return
         }
@@ -63,7 +63,7 @@ class ProductImageLoader: ObservableObject {
         
         cancellable?.cancel()
         
-        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download cancelled: \(self.url, privacy: .public)")
+        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download cancelled: \(self.url.lastPathComponent, privacy: .public)")
         
     }
     
@@ -71,7 +71,7 @@ class ProductImageLoader: ObservableObject {
         
         isLoading = true
         
-        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download started: \(self.url, privacy: .public)")
+        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download started: \(self.url.lastPathComponent, privacy: .public)")
         
     }
     
@@ -79,7 +79,7 @@ class ProductImageLoader: ObservableObject {
         
         isLoading = false
         
-        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download finished: \(self.url, privacy: .public)")
+        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download finished: \(self.url.lastPathComponent, privacy: .public)")
         
     }
     
@@ -87,6 +87,6 @@ class ProductImageLoader: ObservableObject {
         
         image.map { cache?[url] = $0 }
         
-        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image downloaded cache: \(self.url, privacy: .public)")
+        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image downloaded cache: \(self.url.lastPathComponent, privacy: .public)")
     }
 }

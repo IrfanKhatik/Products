@@ -12,24 +12,24 @@ struct Review: Codable, Identifiable, CustomStringConvertible {
     var description: String {
         
         var description = ""
-        description     += "productId: \(self.productId)\n"
-        description     += "locale: \(self.locale)\n"
-        description     += "rating: \(self.rating)\n"
-        description     += "text: \(self.text)\n"
+        description     += "productId: \(self.productId ?? "")\n"
+        description     += "locale: \(self.locale ?? "")\n"
+        description     += "rating: \(self.rating ?? 0)\n"
+        description     += "text: \(self.text ?? "")\n"
         
         return description
     }
     
     var id : String {
         
-        return self.productId + UUID().uuidString
+        return self.productId ?? "" + UUID().uuidString
         
     }
     
-    var productId: String
-    var locale: String
-    var rating: Int
-    var text: String
+    var productId: String?
+    var locale: String?
+    var rating: Int? = 0
+    var text: String?
     
     enum CodingKeys: String, CodingKey {
         case productId

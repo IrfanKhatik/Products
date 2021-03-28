@@ -108,13 +108,15 @@ final class NetworkService {
         request.httpBody    = data
         
         return URLSession.shared.dataTaskPublisher(for: request)
-            .tryMap { response in
-                guard let httpResponse = response as? HTTPURLResponse,
-                      201 == httpResponse.statusCode else {
+            .tryMap { result in
+                guard
+                    let httpResponse = result.response as? HTTPURLResponse,
+                      (200...299).contains(httpResponse.statusCode) else {
+                    print("Failed")
                     return false
                 }
                 
-                LoggerManager.shared.networkLogger.log(level: .default,"[Adidas] POST review response: 201")
+                LoggerManager.shared.networkLogger.log(level: .default,"[Adidas] POST review response: \(httpResponse.statusCode, privacy: .public)")
                 
                 return true
             }

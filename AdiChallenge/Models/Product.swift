@@ -12,25 +12,25 @@ struct Product: Codable, Identifiable, CustomStringConvertible {
     var description: String {
         
         var description = ""
-        description     += "id: \(self.id)\n"
-        description     += "name: \(self.name)\n"
-        description     += "imageUrl: \(self.imgUrl)\n"
-        description     += "desc: \(self.desc)\n"
+        description     += "id: \(self.id ?? "")\n"
+        description     += "name: \(self.name ?? "")\n"
+        description     += "imageUrl: \(self.imgUrl ?? "")\n"
+        description     += "desc: \(self.desc ?? "")\n"
         description     += "price: \(self.price ?? 0.0)\n"
         description     += "currency: \(self.currency ?? "")\n"
-        description     += "reviews: \(self.reviews.description)\n"
+        description     += "reviews: \(self.reviews?.description ?? "")\n"
         
         return description
         
     }
     
-    let id: String
-    let name : String
-    let imgUrl: String
-    let desc: String
+    let id: String?
+    let name : String?
+    let imgUrl: String?
+    let desc: String?
     let price: Double?
     let currency: String?
-    var reviews: [Review]
+    var reviews: [Review]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -43,6 +43,6 @@ struct Product: Codable, Identifiable, CustomStringConvertible {
     }
     
     mutating func addNewReview(_ review: Review) {
-        reviews.append(review)
+        reviews?.append(review)
     }
 }

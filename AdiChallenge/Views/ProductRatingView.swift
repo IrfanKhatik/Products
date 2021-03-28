@@ -45,11 +45,10 @@ struct ProductRatingView: View {
                         .foregroundColor(number > self.rating ? self.offColor : self.onColor)
                         .onTapGesture {
                             if isEditable {
-                                LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Review star tapped: \(number, privacy: .private(mask: .hash))")
+                                LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Review star tapped: \(number, privacy: .public))")
                                 self.rating = number
                             }
                         }
-                    
                 }
             }
         }
@@ -73,33 +72,27 @@ struct ProductRatingView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             
-            GeometryReader { geometry in
+            Form {
                 
-                Form {
+                Section {
                     
-                    Section {
-                        
-                        ProductRatingView(rating: .constant(3),
-                                          spacing: .constant(geometry.size.width / 10),
-                                          label: .constant("Please tap to rate:"),
-                                          isEditable: .constant(true))
-                        
-                    }
+                    ProductRatingView(rating: .constant(3),
+                                      spacing: .constant(10),
+                                      label: .constant("Please tap to rate:"),
+                                      isEditable: .constant(true))
+                    
                 }
             }
             
-            GeometryReader { geometry in
+            Form {
                 
-                Form {
+                Section {
                     
-                    Section {
-                        
-                        ProductRatingView(rating: .constant(3),
-                                          spacing: .constant(geometry.size.width / 10),
-                                          label: .constant("Please tap to rate:"),
-                                          isEditable: .constant(true))
-                        
-                    }
+                    ProductRatingView(rating: .constant(3),
+                                      spacing: .constant(10),
+                                      label: .constant("Please tap to rate:"),
+                                      isEditable: .constant(true))
+                    
                 }
             }
             .preferredColorScheme(.dark)

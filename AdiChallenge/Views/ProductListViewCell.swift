@@ -9,9 +9,9 @@ import SwiftUI
 
 struct ProductListViewCell: View {
     
-    @State private var isPresented = false
-    
     @ObservedObject var productViewModel : ProductViewModel
+    
+    @State private var isPresented = false
     
     init(productViewModel: ProductViewModel) {
         
@@ -53,16 +53,16 @@ struct ProductListViewCell: View {
             VStack(alignment:.leading) {
                 
                 Text(productViewModel.name)
-                    .textStyle(PrimaryTextStyle())
+                    .textStyle(ProductTitleTextStyle())
                     .padding(EdgeInsets(top: 10, leading: 5, bottom: 5, trailing: 5))
                 
                 Text(productViewModel.desc)
-                    .textStyle(SecondaryTextStyle())
+                    .textStyle(ProductDesciptionTextStyle())
                     .lineLimit(3)
                     .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 
                 Text(productViewModel.formattedPrice)
-                    .textStyle(SecondaryTextStyle())
+                    .textStyle(ProductDesciptionTextStyle())
                     .padding(EdgeInsets(top: 5, leading: 5, bottom: 10, trailing: 5))
             }
         }

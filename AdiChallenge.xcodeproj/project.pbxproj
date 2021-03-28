@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013FA6D3261081D000D7DF9D /* OrientationListner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013FA6D2261081D000D7DF9D /* OrientationListner.swift */; };
 		0142FE3E260F2E1000229314 /* UIStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0142FE3D260F2E1000229314 /* UIStyles.swift */; };
 		0142FE47260F944500229314 /* AdiChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0142FE46260F944500229314 /* AdiChallengeTests.swift */; };
 		0142FE51260F946C00229314 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0142FE50260F946C00229314 /* APITests.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		013FA6D2261081D000D7DF9D /* OrientationListner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationListner.swift; sourceTree = "<group>"; };
 		0142FE3D260F2E1000229314 /* UIStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyles.swift; sourceTree = "<group>"; };
 		0142FE44260F944500229314 /* AdiChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdiChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0142FE46260F944500229314 /* AdiChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdiChallengeTests.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				0161B579260EA86900FE83DA /* EnvironmentValues+ImageCache.swift */,
 				0161B58A260EF09400FE83DA /* Constants.swift */,
 				0142FE3D260F2E1000229314 /* UIStyles.swift */,
+				013FA6D2261081D000D7DF9D /* OrientationListner.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				0143CE81260E56D4007DA2F0 /* ProductListView.swift in Sources */,
 				0161B576260EA84800FE83DA /* ProductImageCache.swift in Sources */,
 				0161B565260E9A2800FE83DA /* ProductImageLoader.swift in Sources */,
+				013FA6D3261081D000D7DF9D /* OrientationListner.swift in Sources */,
 				0161B586260EBAF300FE83DA /* ProductRatingView.swift in Sources */,
 				0143CE7F260E56D4007DA2F0 /* AdiChallengeApp.swift in Sources */,
 				0161B57D260EB16C00FE83DA /* ProductDetailView.swift in Sources */,

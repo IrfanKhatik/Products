@@ -7,11 +7,15 @@
 
 import SwiftUI
 
-struct AddProductReview: View {
+struct AddProductReview: View, OrientationListnerProtocol {
     
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var productViewModel: ProductViewModel
+    
+    @State var dismissAddProductReview: Bool = false
+    
+    @State private var orientation = UIDevice.current.orientation
     
     @State private var locale = Locale.current.identifier
     
@@ -24,8 +28,9 @@ struct AddProductReview: View {
         Form {
             
             Section {
+                
                 ProductRatingView(rating: $rating,
-                                  spacing: .constant(UIScreen.main.bounds.width / 10),
+                                  spacing: .constant(20),
                                   label: .constant("Please tap to rate:"),
                                   isEditable: .constant(true))
                     .padding(.bottom, 10)
@@ -35,8 +40,9 @@ struct AddProductReview: View {
                     if review.isEmpty {
                         
                         Text(" Please enter your review")
-                            .font(.custom(Fonts.kFontTitleName, size:12))
+                            .font(.custom(Fonts.kDefaultFontName, size:12))
                             .foregroundColor(.gray)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 50)
                             .padding()
                         
                     }
@@ -59,7 +65,7 @@ struct AddProductReview: View {
                                             rating: rating,
                                             text: review)
                     
-                    LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Submitting review: \(newReview, privacy: .private(mask: .hash))")
+                    LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Review submitting: \(newReview, privacy: .private(mask: .hash))")
                     
                     productViewModel.submitReview(newReview)
                     
@@ -67,17 +73,28 @@ struct AddProductReview: View {
                 .disabled(review.isEmpty)
                 .frame(maxWidth: .infinity, alignment: .center)
             }
-        }
-        .onAppear(perform: {
             
-            if productViewModel.isSubmittedReview {
+            Section {
                 
-                LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Add review dismisses: \(self.productViewModel.id, privacy: .private)")
-                
-                presentationMode.wrappedValue.dismiss()
-                
+                Button("Cancel") {
+                    
+                    LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Add review cancelled: \(self.productViewModel.id, privacy: .private)")
+                    
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
             }
-        })
+        }
+        .onAppear {
+            
+            OrientationListner.shared.listners.append(self)
+            
+        }
+        .onDisappear {
+            
+            OrientationListner.shared.listners.removeLast()
+            
+        }
         .alert(isPresented: $productViewModel.isErrorPresented) {
             
             LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Review error alert shown")
@@ -86,6 +103,26 @@ struct AddProductReview: View {
                          message: Text(productViewModel.errorResponse),
                          dismissButton: .default(Text("Ok")))
         }
+        .onReceive(productViewModel.$isSubmittedReview) { submitted in
+            
+            if submitted {
+                
+                LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Add review dismiss: \(self.productViewModel.id, privacy: .private)")
+                DispatchQueue.main.async {
+                    dismissAddProductReview = true
+                }
+            }
+        }
+        .onChange(of: dismissAddProductReview, perform: { value in
+            presentationMode.wrappedValue.dismiss()
+        })
+    }
+    
+    func orientationChanged() {
+        
+        orientation = UIDevice.current.orientation
+        
+        LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
     }
 }
 

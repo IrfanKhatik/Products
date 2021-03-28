@@ -7,12 +7,20 @@
 
 import SwiftUI
 
-struct ProductListView: View {
+struct ProductListView: View, OrientationListnerProtocol {
     
     @StateObject private var viewModel = ProductListViewModel()
     
-    // refresh the view on orientation change
-    @State var refresh: Bool = false
+    @State private var orientation = UIDevice.current.orientation
+    
+    var searchWidth: CGFloat {
+        
+        if orientation == .portrait  {
+            return UIScreen.main.bounds.width * 0.9
+        }
+        
+        return UIScreen.main.bounds.width * 0.8
+    }
     
     var body: some View {
         
@@ -20,9 +28,10 @@ struct ProductListView: View {
             
             HStack {
                 
-                TextField("", text: $viewModel.searchText)
+                TextField("Search your adidas products", text: $viewModel.searchText)
                     .padding(.horizontal, 40)
-                    .frame(width: UIScreen.main.bounds.width * 0.9, height: 45, alignment: .center)
+                    .frame(width: searchWidth, height: 45,
+                           alignment: .center)
                     .background(Color(#colorLiteral(red: 0.9294475317, green: 0.9239223003, blue: 0.9336946607, alpha: 1)))
                     .clipped()
                     .cornerRadius(10)
@@ -42,50 +51,42 @@ struct ProductListView: View {
             
             ScrollView {
                 
-                LazyVStack(alignment:.leading) {
+                LazyVStack(alignment: .leading) {
                     
-                    if refresh {
+                    ForEach(viewModel.searchText.count > 0 ?
+                                viewModel.filterProductViewModels :
+                                viewModel.productViewModels, id:\.id) { productViewModel in
                         
-                        // To refresh UI when orientation changes
-                        ForEach(viewModel.searchText.count > 0 ?
-                                    viewModel.filterProductViewModels :
-                                    viewModel.productViewModels, id:\.id) { productViewModel in
-                            ProductListViewCell(productViewModel: productViewModel)
-                                .id(UUID())
-                        }
+                        ProductListViewCell(productViewModel: productViewModel)
                         
-                    } else {
-                        
-                        ForEach(viewModel.searchText.count > 0 ?
-                                    viewModel.filterProductViewModels :
-                                    viewModel.productViewModels, id:\.id) { productViewModel in
-                            ProductListViewCell(productViewModel: productViewModel)
-                                .id(UUID())
-                        }
                     }
                 }
             }
-//            .onReceive(viewModel.orientationChanged) { _ in
-//                
-//                LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(UIDevice.current.orientation.rawValue, privacy: .public)")
-//                
-//                self.refresh.toggle()
-//            }
-            .onAppear(perform: {
-                
-                LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Fetch Products.")
-                
-                viewModel.fetchProducts()
-            })
-            .alert(isPresented: $viewModel.isErrorPresented) {
-                
-                LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Product error alert shown")
-                
-                return Alert(title: Text("Network Error"),
-                             message: Text(viewModel.errorResponse),
-                             dismissButton: .default(Text("Ok")))
-            }
+            .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
         }
+        .onAppear {
+            
+            OrientationListner.shared.listners.append(self)
+            
+            LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Fetch Products.")
+            
+            viewModel.fetchProducts()
+        }
+        .alert(isPresented: $viewModel.isErrorPresented) {
+            
+            LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Product error alert shown")
+            
+            return Alert(title: Text("Network Error"),
+                         message: Text(viewModel.errorResponse),
+                         dismissButton: .default(Text("Ok")))
+        }
+    }
+    
+    func orientationChanged() {
+        
+        orientation = UIDevice.current.orientation
+        
+        LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
     }
 }
 

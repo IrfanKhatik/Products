@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct ProductDetailView: View {
+struct ProductDetailView: View, OrientationListnerProtocol {
     
     @Environment(\.presentationMode) var presentationMode
     
     @State private var showAddRatingView = false
+    
+    @State var orientation = UIDevice.current.orientation
     
     @ObservedObject var productViewModel: ProductViewModel
     
@@ -37,7 +39,7 @@ struct ProductDetailView: View {
                             HStack(alignment: .center) {
                                 
                                 Text(self.productViewModel.name)
-                                    .textStyle(PrimaryTextStyle())
+                                    .textStyle(ProductTitleTextStyle())
                                 
                                 Spacer()
                                 
@@ -48,7 +50,7 @@ struct ProductDetailView: View {
                             HStack {
                                 
                                 Text(self.productViewModel.formattedPrice)
-                                    .textStyle(SecondaryTextStyle())
+                                    .textStyle(ProductDesciptionTextStyle())
                                 
                                 Spacer()
                                 
@@ -64,7 +66,7 @@ struct ProductDetailView: View {
                             HStack {
                                 
                                 Text(self.productViewModel.desc)
-                                    .textStyle(SecondaryTextStyle())
+                                    .textStyle(ProductDesciptionTextStyle())
                                 
                                 Spacer()
                                 
@@ -83,14 +85,14 @@ struct ProductDetailView: View {
                                 VStack(alignment:.leading) {
                                     let review = self.productViewModel.reviews[index]
                                     
-                                    Text(review.text)
+                                    Text(review.text ?? "")
                                         .padding(EdgeInsets(top: 10, leading: 10, bottom: 5, trailing: 10))
                                     
                                     HStack {
                                         
                                         Spacer()
                                         
-                                        ProductRatingView(rating: .constant(review.rating),
+                                        ProductRatingView(rating: .constant(review.rating ?? 0),
                                                           spacing: .constant(0.0),
                                                           label: .constant(""),
                                                           isEditable: .constant(false))
@@ -128,23 +130,38 @@ struct ProductDetailView: View {
                         
                         showAddRatingView.toggle()
                         
-                    }.sheet(isPresented: $showAddRatingView) {
-                        
-                        return AddProductReview(productViewModel:self.productViewModel)
-                        
                     }
                 }
             }
-            .navigationViewStyle(StackNavigationViewStyle())
             .navigationBarHidden(true)
         }
+        .onAppear {
+            OrientationListner.shared.listners.append(self)
+        }
+        .onDisappear {
+            OrientationListner.shared.listners.removeLast()
+        }
+        .sheet(isPresented: $showAddRatingView,
+               onDismiss: {
+                self.showAddRatingView = false
+               })
+        {
+            AddProductReview(productViewModel:self.productViewModel)
+        }
+    }
+    
+    func orientationChanged() {
+        
+        orientation = UIDevice.current.orientation
+        
+        LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
     }
 }
 
 struct ProductDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let reviews = [
-            Review(id: "ABC", locale: "nl_NL", rating: 4, text: "This is first review on product"),
+            Review(id: "ABC", locale: "nl_NL", rating: 2, text: "This is first review on product"),
             Review(id: "PQR", locale: "nl_NL", rating: 4, text: "This product very nice and easy to use.")
         ]
         ProductDetailView(productViewModel: ProductViewModel(Product(id: "HI334",
