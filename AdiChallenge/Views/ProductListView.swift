@@ -45,6 +45,7 @@ struct ProductListView: View, OrientationListnerProtocol {
                             
                         }
                     )
+                    .accessibility(identifier: "enterSearchTextField")
                 
             }
             .padding(.top, 10)

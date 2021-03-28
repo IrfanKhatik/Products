@@ -38,6 +38,16 @@
                ReferencedContainer = "container:AdiChallenge.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "01EB42ED2611242E0098C30E"
+               BuildableName = "AdiChallengeUITests.xctest"
+               BlueprintName = "AdiChallengeUITests"
+               ReferencedContainer = "container:AdiChallenge.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
