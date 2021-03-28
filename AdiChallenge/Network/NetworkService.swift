@@ -45,12 +45,11 @@ final class NetworkService {
             return components
         }
         
-        let dummy: Product = Product(id: "", name: "", imgUrl: "", desc: "", price: 0, currency: "", reviews: [])
         guard let productUrl = productURLComponents.url else {
             
             LoggerManager.shared.networkLogger.log(level: .error, "[Adidas] GET Products url invalid \(productURLComponents, privacy: .private(mask: .hash))")
             
-            return Just([dummy])
+            return Just([])
                 .setFailureType(to: NetworkError.self)
                 .eraseToAnyPublisher()
         }
@@ -120,13 +119,11 @@ final class NetworkService {
                     return ["error":"Invalid data", "message": "Fail to decode."]
                 }
                 
-                // try to read out a string array
-                LoggerManager.shared.networkLogger.log(level: .error,"[Adidas] POST review error : \(json, privacy: .private(mask: .none))")
-                
                 guard
                     let httpResponse = result.response as? HTTPURLResponse,
                     (200...299).contains(httpResponse.statusCode) else {
-                    
+                    // try to read out a string array
+                    LoggerManager.shared.networkLogger.log(level: .error,"[Adidas] POST review error : \(json, privacy: .private)")
                     return json
                 }
                 

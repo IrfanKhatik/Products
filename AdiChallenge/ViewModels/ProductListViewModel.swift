@@ -46,7 +46,12 @@ class ProductListViewModel: ObservableObject {
                 
                 LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] No. of products: \(products.count, privacy: .public)")
                 
-                self?.productViewModels = products.map { ProductViewModel($0)}
+                if products.count == 0 {
+                    self?.errorResponse = "Products not available now. Please check later!"
+                    self?.isErrorPresented = true
+                } else {
+                    self?.productViewModels = products.map { ProductViewModel($0)}
+                }
             })
     }
     

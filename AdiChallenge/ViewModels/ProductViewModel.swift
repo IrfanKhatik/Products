@@ -93,7 +93,13 @@ class ProductViewModel: ObservableObject, Identifiable {
                 
                 if
                     let code = result["error"] as? String, !code.isEmpty {
-                    self?.errorResponse = result["message"] as? String ?? "Failed to submit review. Please try later"
+                    
+                    let statusCode = result["statusCode"] as? Int64 ?? 500
+                    
+                    let message = result["message"] as? String ?? "Please try later!"
+                    
+                    self?.errorResponse = "\(code) (\(statusCode))" + " : " + message
+                    
                 } else {
                     // Append review into review list after successful
                     self?.product.addNewReview(review)
