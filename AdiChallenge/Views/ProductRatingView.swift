@@ -38,7 +38,7 @@ struct ProductRatingView: View {
             
             HStack {
                 
-                ForEach(1..<maximumRating + 1) { number in
+                ForEach(1..<maximumRating + 1, id:\.self) { number in
                     
                     self.image(for: number)
                         .padding(.trailing, self.spacing)

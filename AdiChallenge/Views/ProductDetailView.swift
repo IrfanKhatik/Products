@@ -19,100 +19,106 @@ struct ProductDetailView: View {
         
         NavigationView {
             
-            ScrollView {
+            ZStack {
                 
-                VStack(alignment:.leading) {
+                ScrollView {
                     
-                    ProductImageView(
-                        url: URL(string: self.productViewModel.imageUrl)!,
-                        placeholder: { ProgressView() },
-                        image: { Image(uiImage: $0).resizable() }
-                    )
-                    .aspectRatio(contentMode: .fit)
-                    
-                    HStack {
+                    VStack(alignment:.leading) {
                         
-                        HStack(alignment: .center) {
-                            
-                            Text(self.productViewModel.name)
-                                .textStyle(PrimaryTextStyle())
-                            
-                            Spacer()
-                            
-                        }
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.leading, 10)
+                        ProductImageView(
+                            url: URL(string: self.productViewModel.imageUrl)!,
+                            placeholder: { ProgressView() },
+                            image: { Image(uiImage: $0).resizable() }
+                        )
+                        .aspectRatio(contentMode: .fit)
                         
                         HStack {
                             
-                            Text(self.productViewModel.formattedPrice)
-                                .textStyle(SecondaryTextStyle())
+                            HStack(alignment: .center) {
+                                
+                                Text(self.productViewModel.name)
+                                    .textStyle(PrimaryTextStyle())
+                                
+                                Spacer()
+                                
+                            }
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.leading, 10)
                             
-                            Spacer()
+                            HStack {
+                                
+                                Text(self.productViewModel.formattedPrice)
+                                    .textStyle(SecondaryTextStyle())
+                                
+                                Spacer()
+                                
+                            }
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.leading, 10)
                             
                         }
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.leading, 10)
-                        
-                    }
-                    .padding(.bottom, 5)
-                    
-                    HStack {
+                        .padding(.bottom, 5)
                         
                         HStack {
                             
-                            Text(self.productViewModel.desc)
-                                .textStyle(SecondaryTextStyle())
-                            
-                            Spacer()
-                            
+                            HStack {
+                                
+                                Text(self.productViewModel.desc)
+                                    .textStyle(SecondaryTextStyle())
+                                
+                                Spacer()
+                                
+                            }
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.leading, 10)
                         }
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.leading, 10)
-                    }
-                    
-                    Divider()
-                    
-                    LazyVStack(alignment: .leading) {
                         
-                        ForEach(self.productViewModel.reviews) { review in
+                        Divider()
+                        
+                        
+                        LazyVStack(alignment:.leading) {
                             
-                            VStack(alignment:.leading) {
+                            ForEach(0..<self.productViewModel.reviews.count, id:\.self) { index in
                                 
-                                Text(review.text)
-                                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 5, trailing: 10))
-                                
-                                HStack {
+                                VStack(alignment:.leading) {
+                                    let review = self.productViewModel.reviews[index]
                                     
-                                    Spacer()
+                                    Text(review.text)
+                                        .padding(EdgeInsets(top: 10, leading: 10, bottom: 5, trailing: 10))
                                     
-                                    ProductRatingView(rating: .constant(review.rating),
-                                                      spacing: .constant(0.0),
-                                                      label: .constant(""),
-                                                      isEditable: .constant(false))
-                                        .padding(.trailing, 10)
-                                    
+                                    HStack {
+                                        
+                                        Spacer()
+                                        
+                                        ProductRatingView(rating: .constant(review.rating),
+                                                          spacing: .constant(0.0),
+                                                          label: .constant(""),
+                                                          isEditable: .constant(false))
+                                            .padding(.trailing, 10)
+                                        
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            .toolbar {
                 
-                ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
                     
-                    Button("Back") {
+                    LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Back tapped: \(self.productViewModel.id, privacy: .public)")
+                    
+                    withAnimation {
                         
-                        LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Back tapped: \(self.productViewModel.id, privacy: .public)")
+                        presentationMode.wrappedValue.dismiss()
                         
-                        withAnimation {
-                            
-                            presentationMode.wrappedValue.dismiss()
-                            
-                        }
                     }
+                }){
+                    Image("BackIcon")
                 }
+                .position(x: 25, y: 25)
+            }
+            .padding(.bottom, 10)
+            .toolbar {
                 
                 ToolbarItem(placement: .bottomBar) {
                     
@@ -129,8 +135,8 @@ struct ProductDetailView: View {
                     }
                 }
             }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarTitle(self.productViewModel.name, displayMode: .inline)
+            .navigationViewStyle(StackNavigationViewStyle())
+            .navigationBarHidden(true)
         }
     }
 }
@@ -142,12 +148,12 @@ struct ProductDetailView_Previews: PreviewProvider {
             Review(id: "PQR", locale: "nl_NL", rating: 4, text: "This product very nice and easy to use.")
         ]
         ProductDetailView(productViewModel: ProductViewModel(Product(id: "HI334",
-                                                                       name: "Product Name",
-                                                                       imgUrl: "https://assets.adidas.com/images/w_320,h_320,f_auto,q_auto:sensitive,fl_lossy/c93fa315d2f64775ac1fab96016f09d1_9366/Dame_6_Shoes_Black_FV8624_01_standard.jpg",
-                                                                       desc: "description",
-                                                                       price: 25.0,
-                                                                       currency: "nl_NL",
-                                                                       reviews: reviews)))
+                                                                     name: "Product Name",
+                                                                     imgUrl: "https://assets.adidas.com/images/w_320,h_320,f_auto,q_auto:sensitive,fl_lossy/c93fa315d2f64775ac1fab96016f09d1_9366/Dame_6_Shoes_Black_FV8624_01_standard.jpg",
+                                                                     desc: "description",
+                                                                     price: 25.0,
+                                                                     currency: "nl_NL",
+                                                                     reviews: reviews)))
             .environment(\.sizeCategory, .extraSmall)
     }
 }

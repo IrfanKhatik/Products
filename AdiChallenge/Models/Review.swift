@@ -12,7 +12,7 @@ struct Review: Codable, Identifiable, CustomStringConvertible {
     var description: String {
         
         var description = ""
-        description     += "productId: \(self.id)\n"
+        description     += "productId: \(self.productId)\n"
         description     += "locale: \(self.locale)\n"
         description     += "rating: \(self.rating)\n"
         description     += "text: \(self.text)\n"
@@ -20,13 +20,19 @@ struct Review: Codable, Identifiable, CustomStringConvertible {
         return description
     }
     
-    var id: String
+    var id : String {
+        
+        return self.productId + UUID().uuidString
+        
+    }
+    
+    var productId: String
     var locale: String
     var rating: Int
     var text: String
     
     enum CodingKeys: String, CodingKey {
-        case id     = "productId"
+        case productId
         case locale
         case rating
         case text
@@ -35,16 +41,16 @@ struct Review: Codable, Identifiable, CustomStringConvertible {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.id     = try values.decode(String.self, forKey: .id)
-        self.locale = try values.decode(String.self, forKey: .locale)
-        self.rating = try values.decode(Int.self, forKey: .rating)
-        self.text   = try values.decode(String.self, forKey: .text)
+        self.productId  = try values.decode(String.self, forKey: .productId)
+        self.locale     = try values.decode(String.self, forKey: .locale)
+        self.rating     = try values.decode(Int.self, forKey: .rating)
+        self.text       = try values.decode(String.self, forKey: .text)
     }
     
     init(id: String, locale: String, rating:Int, text: String ) {
-        self.id     = id
-        self.locale = locale
-        self.rating = rating
-        self.text   = text
+        self.productId  = id
+        self.locale     = locale
+        self.rating     = rating
+        self.text       = text
     }
 }

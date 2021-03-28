@@ -65,12 +65,12 @@ struct ProductListView: View {
                     }
                 }
             }
-            .onReceive(viewModel.orientationChanged) { _ in
-                
-                LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(UIDevice.current.orientation.rawValue, privacy: .public)")
-                
-                self.refresh.toggle()
-            }
+//            .onReceive(viewModel.orientationChanged) { _ in
+//                
+//                LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(UIDevice.current.orientation.rawValue, privacy: .public)")
+//                
+//                self.refresh.toggle()
+//            }
             .onAppear(perform: {
                 
                 LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Fetch Products.")
