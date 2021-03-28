@@ -12,9 +12,9 @@ struct Fonts {
     
     static var kDefaultFontName: String   = "Graphik-Light"
     
-    static var kFontTitleSize: CGFloat  = 13.0
+    static var kFontTitleSize: CGFloat  = 14.0
     
-    static var kFontDescSize: CGFloat  = 20.0
+    static var kFontDescSize: CGFloat  = 17.0
 }
 
 struct Constants {

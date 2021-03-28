@@ -13,7 +13,9 @@ struct AddProductReview: View, OrientationListnerProtocol {
     
     @ObservedObject var productViewModel: ProductViewModel
     
-    @State var dismissAddProductReview: Bool = false
+    @State private var dismissAddProductReview: Bool = false
+    
+    @State private var showReviewAlert: Bool = false
     
     @State private var orientation = UIDevice.current.orientation
     
@@ -61,9 +63,9 @@ struct AddProductReview: View, OrientationListnerProtocol {
                     LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Submit review tapped: \(self.productViewModel.id, privacy: .private)")
                     
                     let newReview = Review(id: productViewModel.id,
-                                            locale: locale,
-                                            rating: rating,
-                                            text: review)
+                                           locale: locale,
+                                           rating: rating,
+                                           text: review)
                     
                     LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Review submitting: \(newReview, privacy: .private(mask: .hash))")
                     
@@ -90,32 +92,39 @@ struct AddProductReview: View, OrientationListnerProtocol {
             OrientationListner.shared.listners.append(self)
             
         }
+        .onReceive(productViewModel.$reviewResult) { submitted in
+            if submitted {
+                showReviewAlert = true
+            }
+        }
+        .alert(isPresented: $showReviewAlert) {
+            
+            if productViewModel.errorResponse.isEmpty {
+                
+                return Alert(title: Text("Review"),
+                             message: Text("Your review submitted successfully."),
+                             dismissButton: .default(Text("Ok"), action: {
+                                dismissAddProductReview = true
+                             }))
+            } else {
+                
+                return Alert(title: Text("Add Review Error"),
+                             message: Text(productViewModel.errorResponse),
+                             dismissButton: .cancel())
+            }
+            
+        }
+        .onChange(of: dismissAddProductReview, perform: { value in
+            
+            LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Add review dismiss: \(self.productViewModel.id, privacy: .private)")
+            
+            presentationMode.wrappedValue.dismiss()
+        })
         .onDisappear {
             
             OrientationListner.shared.listners.removeLast()
             
         }
-        .alert(isPresented: $productViewModel.isErrorPresented) {
-            
-            LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Review error alert shown")
-            
-            return Alert(title: Text("Network Error"),
-                         message: Text(productViewModel.errorResponse),
-                         dismissButton: .default(Text("Ok")))
-        }
-        .onReceive(productViewModel.$isSubmittedReview) { submitted in
-            
-            if submitted {
-                
-                LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Add review dismiss: \(self.productViewModel.id, privacy: .private)")
-                DispatchQueue.main.async {
-                    dismissAddProductReview = true
-                }
-            }
-        }
-        .onChange(of: dismissAddProductReview, perform: { value in
-            presentationMode.wrappedValue.dismiss()
-        })
     }
     
     func orientationChanged() {
@@ -137,7 +146,7 @@ struct AddProductReview_Previews: PreviewProvider {
                                                                         currency: "",
                                                                         reviews: [])))
                 .preferredColorScheme(.light)
-                
+            
             AddProductReview(productViewModel: ProductViewModel(Product(id: "HI334",
                                                                         name: "Product Name",
                                                                         imgUrl: "https://assets.adidas.com/images/w_320,h_320,f_auto,q_auto:sensitive,fl_lossy/c93fa315d2f64775ac1fab96016f09d1_9366/Dame_6_Shoes_Black_FV8624_01_standard.jpg",

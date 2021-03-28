@@ -34,12 +34,12 @@ class ProductListViewModel: ObservableObject {
                 
                 switch completion {
                 
-                    case .finished: self?.errorResponse = ""; self?.isErrorPresented = false
+                case .finished: self?.errorResponse = ""; self?.isErrorPresented = false
                     
-                    case .failure(.url(let error)) :        self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
-                    case .failure(.decode(let error)):      self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
-                    case .failure(.unknown(let error)) :    self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
-                    case .failure(.encode(let error)):      self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
+                case .failure(.url(let error)) :        self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
+                case .failure(.decode(let error)):      self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
+                case .failure(.unknown(let error)) :    self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
+                case .failure(.encode(let error)):      self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
                     
                 }
             }, receiveValue: { [weak self] products in

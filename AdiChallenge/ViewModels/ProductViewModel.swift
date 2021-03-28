@@ -10,9 +10,7 @@ import Combine
 
 class ProductViewModel: ObservableObject, Identifiable {
     
-    @Published var isErrorPresented = false
-    
-    @Published var isSubmittedReview = false
+    @Published var reviewResult = false
     
     var errorResponse = ""
     
@@ -81,20 +79,27 @@ class ProductViewModel: ObservableObject, Identifiable {
                 
                 switch completion {
                 
-                    case .finished: self?.product.addNewReview(review); self?.errorResponse = ""; self?.isErrorPresented = false
+                case .finished: self?.errorResponse = ""
                     
-                    case .failure(.url(let error)) :        self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
-                    case .failure(.decode(let error)):      self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
-                    case .failure(.unknown(let error)) :    self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
-                    case .failure(.encode(let error)):      self?.errorResponse = error.localizedDescription; self?.isErrorPresented = true
-                    
+                case .failure(.url(let error)) :        self?.errorResponse = error.localizedDescription
+                case .failure(.decode(let error)):      self?.errorResponse = error.localizedDescription
+                case .failure(.unknown(let error)) :    self?.errorResponse = error.localizedDescription
+                case .failure(.encode(let error)):      self?.errorResponse = error.localizedDescription
+                
                 }
             }, receiveValue: { [weak self] result in
                 
-                LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Review submittted: \(result, privacy: .public)")
+                LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Review submittted: \(result, privacy: .public)")
                 
-                self?.isSubmittedReview = result
+                if
+                    let code = result["error"] as? String, !code.isEmpty {
+                    self?.errorResponse = result["message"] as? String ?? "Failed to submit review. Please try later"
+                } else {
+                    // Append review into review list after successful
+                    self?.product.addNewReview(review)
+                }
                 
+                self?.reviewResult = true
             })
     }
 }

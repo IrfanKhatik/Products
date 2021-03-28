@@ -64,6 +64,7 @@ struct ProductListView: View, OrientationListnerProtocol {
             }
             .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
         }
+        .padding(.bottom, 10)
         .onAppear {
             
             OrientationListner.shared.listners.append(self)

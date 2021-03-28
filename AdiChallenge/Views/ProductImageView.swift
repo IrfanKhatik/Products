@@ -20,10 +20,10 @@ struct ProductImageView<Placeholder: View>: View {
          @ViewBuilder placeholder: () -> Placeholder,
          
          @ViewBuilder image: @escaping (UIImage) -> Image = Image.init(uiImage:)) {
-            
-            self.placeholder    = placeholder()
-            self.image          = image
-            _loader             = StateObject(wrappedValue: ProductImageLoader(url: url, cache: Environment(\.productImageCache).wrappedValue))
+        
+        self.placeholder    = placeholder()
+        self.image          = image
+        _loader             = StateObject(wrappedValue: ProductImageLoader(url: url, cache: Environment(\.productImageCache).wrappedValue))
     }
     
     var body: some View {
