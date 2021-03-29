@@ -6,32 +6,95 @@
 //
 
 import XCTest
-import Combine
 
 @testable import AdiChallenge
 
 class AdiChallengeTests: XCTestCase {
-    //store ongoing subscribers (ongoing calls) here, for simplicities sake.
-    var subscribers = Set<AnyCancellable>()
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        //NOTE: Subscribers are cancelled on deinit, so realistically the removeAll call is all that is needed to stop any ongoing calls.
-        subscribers.forEach { $0.cancel() }
-        subscribers.removeAll()
     }
-
+    
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
+    
+    func testPriceWithCurrency() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        //NetworkService().fetchProducts()
+        let product = Product(id: "ProductId",
+                              name: "Adidas T 200",
+                              imgUrl: "https://www.adidas.com/t200.jpg",
+                              desc: "Athele shoes for swift runners.",
+                              price: 200,
+                              currency: "nl_NL",
+                              reviews: [])
+        
+        let productViewModel = ProductViewModel(product)
+        
+        let price = productViewModel.formattedPrice
+        
+        XCTAssertGreaterThanOrEqual(price.count, 3)
+        
+        XCTAssertEqual(price, "€ 200,00")
     }
-
+    
+    func testPriceWithoutCurrency() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let product = Product(id: "ProductId",
+                              name: "Adidas T 200",
+                              imgUrl: "https://www.adidas.com/t200.jpg",
+                              desc: "Athele shoes for swift runners.",
+                              price: 50,
+                              currency: "",
+                              reviews: [])
+        
+        let productViewModel = ProductViewModel(product)
+        
+        let price = productViewModel.formattedPrice
+        
+        XCTAssertGreaterThanOrEqual(price.count, 3)
+        
+        XCTAssertEqual(price, "$50.00")
+    }
+    
+    func testPriceZeroWithCurrency() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let product = Product(id: "ProductId",
+                              name: "Adidas T 200",
+                              imgUrl: "https://www.adidas.com/t200.jpg",
+                              desc: "Athele shoes for swift runners.",
+                              price: 0.0,
+                              currency: "nl_NL",
+                              reviews: [])
+        
+        let productViewModel = ProductViewModel(product)
+        
+        let price = productViewModel.formattedPrice
+        
+        XCTAssertEqual(price, "€ 0,00")
+    }
+    
+    func testWithoutPriceAndCurrency() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let product = Product(id: "ProductId",
+                              name: "Adidas T 200",
+                              imgUrl: "https://www.adidas.com/t200.jpg",
+                              desc: "Athele shoes for swift runners.",
+                              price: 0.0,
+                              currency: "",
+                              reviews: [])
+        
+        let productViewModel = ProductViewModel(product)
+        
+        let price = productViewModel.formattedPrice
+        
+        XCTAssertEqual(price, "$0.00")
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {

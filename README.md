@@ -11,6 +11,8 @@ Desing Pattern: MVVM
 
 Development Tool: Xcode 12.4
 
-Known Bugs: [] nw_protocol_get_quic_image_block_invoke dlopen libquic failed trying to resolve.
+Unit Test : Added few XCTests
 
-Remaining: Adding Unit Test cases and more comments.
+Dependancy: OHHTTPStubs through Swift Package Manager
+
+Remaining:  Documentation and comments.

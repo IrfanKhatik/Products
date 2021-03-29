@@ -55,7 +55,7 @@ final class NetworkService {
         }
         
         var request: URLRequest = URLRequest(url: productUrl)
-        request.setValue("application/json", forHTTPHeaderField: "accept")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "GET"
         
         return URLSession.shared.dataTaskPublisher(for: request)
@@ -107,7 +107,7 @@ final class NetworkService {
         }
         
         var request: URLRequest = URLRequest(url: reviewUrl.appendingPathComponent(review.id))
-        request.setValue("application/json", forHTTPHeaderField: "accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         request.httpMethod  = "POST"
         request.httpBody    = data
