@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010932122611398A001203E0 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010932112611398A001203E0 /* APITests.swift */; };
+		0109322926114F04001203E0 /* products.json in Resources */ = {isa = PBXBuildFile; fileRef = 0109322826114F04001203E0 /* products.json */; };
+		010932312611508B001203E0 /* empty.json in Resources */ = {isa = PBXBuildFile; fileRef = 010932302611508B001203E0 /* empty.json */; };
 		013FA6D3261081D000D7DF9D /* OrientationListner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013FA6D2261081D000D7DF9D /* OrientationListner.swift */; };
 		0142FE3E260F2E1000229314 /* UIStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0142FE3D260F2E1000229314 /* UIStyles.swift */; };
 		0143CE7F260E56D4007DA2F0 /* AdiChallengeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0143CE7E260E56D4007DA2F0 /* AdiChallengeApp.swift */; };
@@ -28,6 +31,8 @@
 		0161B586260EBAF300FE83DA /* ProductRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B585260EBAF300FE83DA /* ProductRatingView.swift */; };
 		0161B58B260EF09400FE83DA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B58A260EF09400FE83DA /* Constants.swift */; };
 		016F6F262611317B008D0FAC /* AdiChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F6F252611317B008D0FAC /* AdiChallengeTests.swift */; };
+		016F6F38261136CF008D0FAC /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 016F6F37261136CF008D0FAC /* OHHTTPStubs */; };
+		016F6F3A261136CF008D0FAC /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 016F6F39261136CF008D0FAC /* OHHTTPStubsSwift */; };
 		018A397B260F9F120005F7D6 /* LoggerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A397A260F9F120005F7D6 /* LoggerManager.swift */; };
 		01EB42F12611242E0098C30E /* AdiChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB42F02611242E0098C30E /* AdiChallengeUITests.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		010932112611398A001203E0 /* APITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
+		0109322826114F04001203E0 /* products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = products.json; path = responses/products.json; sourceTree = "<group>"; };
+		010932302611508B001203E0 /* empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = empty.json; path = responses/empty.json; sourceTree = "<group>"; };
 		013FA6D2261081D000D7DF9D /* OrientationListner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationListner.swift; sourceTree = "<group>"; };
 		0142FE3D260F2E1000229314 /* UIStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStyles.swift; sourceTree = "<group>"; };
 		0143CE7B260E56D4007DA2F0 /* AdiChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdiChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,6 +101,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				016F6F38261136CF008D0FAC /* OHHTTPStubs in Frameworks */,
+				016F6F3A261136CF008D0FAC /* OHHTTPStubsSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,10 +116,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01093221261143EA001203E0 /* responses */ = {
+			isa = PBXGroup;
+			children = (
+				0109322826114F04001203E0 /* products.json */,
+				010932302611508B001203E0 /* empty.json */,
+			);
+			name = responses;
+			sourceTree = "<group>";
+		};
 		0143CE72260E56D4007DA2F0 = {
 			isa = PBXGroup;
 			children = (
 				0143CE7D260E56D4007DA2F0 /* AdiChallenge */,
+				016F6F242611317B008D0FAC /* AdiChallengeTests */,
 				01EB42EF2611242E0098C30E /* AdiChallengeUITests */,
 				016F6F242611317B008D0FAC /* AdiChallengeTests */,
 				0143CE7C260E56D4007DA2F0 /* Products */,
@@ -215,6 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				016F6F252611317B008D0FAC /* AdiChallengeTests.swift */,
+				010932112611398A001203E0 /* APITests.swift */,
+				01093221261143EA001203E0 /* responses */,
 				016F6F272611317B008D0FAC /* Info.plist */,
 			);
 			path = AdiChallengeTests;
@@ -271,6 +293,10 @@
 				016F6F292611317B008D0FAC /* PBXTargetDependency */,
 			);
 			name = AdiChallengeTests;
+			packageProductDependencies = (
+				016F6F37261136CF008D0FAC /* OHHTTPStubs */,
+				016F6F39261136CF008D0FAC /* OHHTTPStubsSwift */,
+			);
 			productName = AdiChallengeTests;
 			productReference = 016F6F232611317B008D0FAC /* AdiChallengeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -324,6 +350,9 @@
 				Base,
 			);
 			mainGroup = 0143CE72260E56D4007DA2F0;
+			packageReferences = (
+				016F6F36261136CF008D0FAC /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
+			);
 			productRefGroup = 0143CE7C260E56D4007DA2F0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -349,6 +378,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0109322926114F04001203E0 /* products.json in Resources */,
+				010932312611508B001203E0 /* empty.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +423,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				010932122611398A001203E0 /* APITests.swift in Sources */,
 				016F6F262611317B008D0FAC /* AdiChallengeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -698,6 +730,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		016F6F36261136CF008D0FAC /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		016F6F37261136CF008D0FAC /* OHHTTPStubs */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 016F6F36261136CF008D0FAC /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubs;
+		};
+		016F6F39261136CF008D0FAC /* OHHTTPStubsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 016F6F36261136CF008D0FAC /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;
+			productName = OHHTTPStubsSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0143CE73260E56D4007DA2F0 /* Project object */;
 }

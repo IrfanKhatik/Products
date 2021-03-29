@@ -25,11 +25,19 @@ class AdiChallengeTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+<<<<<<< HEAD
 
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         NetworkService().fetchProducts()
+=======
+    
+    func testExample() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        //NetworkService().fetchProducts()
+>>>>>>> Added Swift Package Manager for OHHTTPStubs
     }
 
     func testPerformanceExample() throws {
