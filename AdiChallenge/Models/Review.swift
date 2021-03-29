@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Model class for product review
 struct Review: Codable, Identifiable, CustomStringConvertible {
     
     var description: String {

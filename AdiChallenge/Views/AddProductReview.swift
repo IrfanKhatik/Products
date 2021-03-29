@@ -9,20 +9,30 @@ import SwiftUI
 
 struct AddProductReview: View, OrientationListnerProtocol {
     
+    // An indication whether a view is currently presented by another view.
+    // Dismiss View using its presentation mode environment key.
     @Environment(\.presentationMode) var presentationMode
     
+    // Product viewmodel to provide product id for submit product review.
     @ObservedObject var productViewModel: ProductViewModel
     
-    @State private var dismissAddProductReview: Bool = false
+    // To match equatable for OrientationListnerProtocol
+    var identifier : String = UUID().uuidString
     
+    // State property to show alert after submit review response
     @State private var showReviewAlert: Bool = false
     
+    // State property to dismiss self after submit review success.
+    @State private var dismissAddProductReview: Bool = false
+    
+    // State property to update orientation change.
     @State private var orientation = UIDevice.current.orientation
     
-    @State private var locale = Locale.current.identifier
-    
+    // State property to set review text.
     @State private var review = ""
     
+    // State property to set review ratings.
+    // (maximum will be kMaximumNumberOfRreviewRating value).
     @State private var rating = 0
     
     var body: some View {
@@ -30,7 +40,8 @@ struct AddProductReview: View, OrientationListnerProtocol {
         Form {
             
             Section {
-                
+                // Add product review text and rating star view
+                // isEditable as we are adding review text and ratings
                 ProductRatingView(rating: $rating,
                                   spacing: .constant(20),
                                   label: .constant("Please tap to rate:"),
@@ -40,7 +51,7 @@ struct AddProductReview: View, OrientationListnerProtocol {
                 ZStack(alignment: .leading) {
                     
                     if review.isEmpty {
-                        
+                        // Add Text placeholder text when review text missing
                         Text(" Please enter your review")
                             .font(.custom(Fonts.kDefaultFontName, size:12))
                             .foregroundColor(.gray)
@@ -49,6 +60,7 @@ struct AddProductReview: View, OrientationListnerProtocol {
                         
                     }
                     
+                    // Add TextEditor so user can add review text
                     TextEditor(text: $review)
                         .lineSpacing(8)
                         .lineLimit(UIDevice.current.orientation.isPortrait ? 10 : 5)
@@ -60,15 +72,17 @@ struct AddProductReview: View, OrientationListnerProtocol {
                 
                 Button("Submit") {
                     
-                    LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Submit review tapped: \(self.productViewModel.id, privacy: .private)")
+                    LogManager.shared.uiLogger.log(level: .info, "[Adidas] Submit review tapped: \(self.productViewModel.id, privacy: .private)")
                     
+                    // Prepare new review for product.
                     let newReview = Review(id: productViewModel.id,
-                                           locale: locale,
+                                           locale: Locale.current.identifier,
                                            rating: rating,
                                            text: review)
                     
-                    LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Review submitting: \(newReview, privacy: .private(mask: .hash))")
+                    LogManager.shared.defaultLogger.log(level: .info, "[Adidas] Review submitting: \(newReview, privacy: .private(mask: .hash))")
                     
+                    // Submit review using REST api
                     productViewModel.submitReview(newReview)
                     
                 }
@@ -80,8 +94,9 @@ struct AddProductReview: View, OrientationListnerProtocol {
                 
                 Button("Cancel") {
                     
-                    LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Add review cancelled: \(self.productViewModel.id, privacy: .private)")
+                    LogManager.shared.uiLogger.log(level: .info, "[Adidas] Add review cancelled: \(self.productViewModel.id, privacy: .private)")
                     
+                    // Dismiss AddProductReview view
                     presentationMode.wrappedValue.dismiss()
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -89,11 +104,13 @@ struct AddProductReview: View, OrientationListnerProtocol {
         }
         .onAppear {
             
+            // Confirm to orientation change listner
             OrientationListner.shared.listners.append(self)
             
         }
         .onReceive(productViewModel.$reviewResult) { submitted in
             if submitted {
+                // Show review success / failure alert after submit review.
                 showReviewAlert = true
             }
         }
@@ -101,13 +118,16 @@ struct AddProductReview: View, OrientationListnerProtocol {
             
             if productViewModel.errorResponse.isEmpty {
                 
+                // Show success alert
                 return Alert(title: Text("Review"),
                              message: Text("Your review submitted successfully."),
                              dismissButton: .default(Text("Ok"), action: {
+                                // Dismiss AddProductReview view
                                 dismissAddProductReview = true
                              }))
             } else {
                 
+                // Show failure alert
                 return Alert(title: Text("Add Review Error"),
                              message: Text(productViewModel.errorResponse),
                              dismissButton: .cancel())
@@ -116,22 +136,35 @@ struct AddProductReview: View, OrientationListnerProtocol {
         }
         .onChange(of: dismissAddProductReview, perform: { value in
             
-            LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Add review dismiss: \(self.productViewModel.id, privacy: .private)")
+            LogManager.shared.uiLogger.log(level: .info, "[Adidas] Add review dismiss: \(self.productViewModel.id, privacy: .private)")
             
+            // Dismiss AddProductReview view after submit review success.
             presentationMode.wrappedValue.dismiss()
         })
         .onDisappear {
-            
-            OrientationListner.shared.listners.removeLast()
-            
+            // Remove orientation listening as its disappearing.
+            if let index = OrientationListner.shared.find(value: self) {
+                if index < OrientationListner.shared.listners.count {
+                    OrientationListner.shared.listners.remove(at: index)
+                }
+            }
         }
     }
     
+    // OrientationListnerProtocol method
     func orientationChanged() {
+        // Its called when orintation changes
         
+        // Update orientation state property
         orientation = UIDevice.current.orientation
         
-        LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
+        LogManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
+    }
+}
+
+extension AddProductReview : Equatable {
+    static func == (lhs: AddProductReview, rhs: AddProductReview) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }
 

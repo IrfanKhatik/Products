@@ -11,25 +11,31 @@ import UIKit
 
 class ProductListViewModel: ObservableObject {
     
+    // Published property for ProductViewModels required to show on ProductListView
     @Published var productViewModels = [ProductViewModel]()
     
+    // Published property for filtered ProductViewModels required to show on Search ProductListView.
     @Published var filterProductViewModels = [ProductViewModel]()
     
+    // Published property if error presented for fetch products.
     @Published var isErrorPresented = false
     
+    // Published property for search text for products with name and desciption
     @Published var searchText = ""
     
+    // Property for keeping last network error response.
     var errorResponse = ""
     
-    private let networkService = NetworkService()
-    
+    // Cancellable for fetch products datatask publisher.
     private var cancellable: AnyCancellable?
     
+    // Cancellable to store searchText published.
     private var cancellables = Set<AnyCancellable>()
     
+    // Fetch products over network REST api
     func fetchProducts() {
         
-        cancellable = networkService.fetchProducts()
+        cancellable = NetworkService.shared.fetchProducts()
             .sink(receiveCompletion: { [weak self] completion in
                 
                 switch completion {
@@ -44,13 +50,15 @@ class ProductListViewModel: ObservableObject {
                 }
             }, receiveValue: { [weak self] products in
                 
-                LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] No. of products: \(products.count, privacy: .public)")
+                LogManager.shared.defaultLogger.log(level: .info, "[Adidas] No. of products: \(products.count, privacy: .public)")
                 
                 if products.count == 0 {
+                    // If products list empty then show alert.
                     self?.errorResponse = "Products not available now. Please check later!"
                     self?.isErrorPresented = true
                 } else {
-                    self?.productViewModels = products.map { ProductViewModel($0)}
+                    // Assign map ProductViewModel to published productViewModels.
+                    self?.productViewModels = products.compactMap { ProductViewModel($0)}
                 }
             })
     }
@@ -66,7 +74,7 @@ class ProductListViewModel: ObservableObject {
                     
                     self?.filterProductViewModels = []
                     
-                    LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Search text empty")
+                    LogManager.shared.uiLogger.log(level: .info, "[Adidas] Search text empty")
                     
                     return nil
                 }
@@ -77,15 +85,21 @@ class ProductListViewModel: ObservableObject {
             .sink { [weak self] (_) in
                 //
             } receiveValue: { [self] (searchField) in
-                
-                searchItems(searchText: searchField)
+                // Search products on text change.
+                searchProducts(searchText: searchField)
                 
             }.store(in: &cancellables)
     }
     
-    private func searchItems(searchText: String) {
+    deinit {
+        cancellable?.cancel()
+        cancellables.compactMap{ $0.cancel() }
+    }
+    
+    // Search products based on name or desc find for searchText.
+    private func searchProducts(searchText: String) {
         
-        LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Search text: \(searchText, privacy: .public)")
+        LogManager.shared.uiLogger.log(level: .info, "[Adidas] Search text: \(searchText, privacy: .public)")
         
         self.filterProductViewModels = self.productViewModels.filter {
             

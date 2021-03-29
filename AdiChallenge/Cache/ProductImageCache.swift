@@ -15,7 +15,7 @@ protocol ProductImageCache {
 struct TemporaryProductImageCache: ProductImageCache {
     private let cache: NSCache<NSURL, UIImage> = {
         let cache               = NSCache<NSURL, UIImage>()
-        cache.countLimit        = 100 // 100 items
+        cache.countLimit        = 100 // 100 items persisted
         cache.totalCostLimit    = 1024 * 1024 * 100 // 100 MB
         
         return cache

@@ -9,12 +9,20 @@ import SwiftUI
 
 struct ProductDetailView: View, OrientationListnerProtocol {
     
+    // An indication whether a view is currently presented by another view.
+    // Dismiss View using its presentation mode environment key.
     @Environment(\.presentationMode) var presentationMode
     
+    // To match equatable for OrientationListnerProtocol
+    var identifier : String = UUID().uuidString
+    
+    // State property for showing add rating view or not.
     @State private var showAddRatingView = false
     
+    // State property to update orientation change.
     @State var orientation = UIDevice.current.orientation
     
+    // Observable property for ProductViewModel to provide product details.
     @ObservedObject var productViewModel: ProductViewModel
     
     var body: some View {
@@ -26,9 +34,9 @@ struct ProductDetailView: View, OrientationListnerProtocol {
                 ScrollView {
                     
                     VStack(alignment:.leading) {
-                        
+                        // Add product image
                         ProductImageView(
-                            url: URL(string: self.productViewModel.imageUrl)!,
+                            url: URL(string: self.productViewModel.imageUrl) ?? nil,
                             placeholder: { ProgressView() },
                             image: { Image(uiImage: $0).resizable() }
                         )
@@ -37,7 +45,7 @@ struct ProductDetailView: View, OrientationListnerProtocol {
                         HStack {
                             
                             HStack(alignment: .center) {
-                                
+                                // Add product name
                                 Text(self.productViewModel.name)
                                     .textStyle(ProductTitleTextStyle())
                                 
@@ -48,7 +56,7 @@ struct ProductDetailView: View, OrientationListnerProtocol {
                             .padding(.leading, 10)
                             
                             HStack {
-                                
+                                // Add product price
                                 Text(self.productViewModel.formattedPrice)
                                     .textStyle(ProductDesciptionTextStyle())
                                 
@@ -64,7 +72,7 @@ struct ProductDetailView: View, OrientationListnerProtocol {
                         HStack {
                             
                             HStack {
-                                
+                                // Add product description
                                 Text(self.productViewModel.desc)
                                     .textStyle(ProductDesciptionTextStyle())
                                 
@@ -77,12 +85,14 @@ struct ProductDetailView: View, OrientationListnerProtocol {
                         
                         Divider()
                         
-                        
+                        // Added lazy VStack
                         LazyVStack(alignment:.leading) {
                             
+                            // Add products reviews
                             ForEach(0..<self.productViewModel.reviews.count, id:\.self) { index in
                                 
                                 VStack(alignment:.leading) {
+                                    
                                     let review = self.productViewModel.reviews[index]
                                     
                                     Text(review.text ?? "")
@@ -92,6 +102,7 @@ struct ProductDetailView: View, OrientationListnerProtocol {
                                         
                                         Spacer()
                                         
+                                        // Add product review text and rating star view
                                         ProductRatingView(rating: .constant(review.rating ?? 0),
                                                           spacing: .constant(0.0),
                                                           label: .constant(""),
@@ -105,12 +116,13 @@ struct ProductDetailView: View, OrientationListnerProtocol {
                     }
                 }
                 
+                // Add back button on top of above scrollable view.
                 Button(action: {
                     
-                    LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Back tapped: \(self.productViewModel.id, privacy: .public)")
+                    LogManager.shared.uiLogger.log(level: .info, "[Adidas] Back tapped: \(self.productViewModel.id, privacy: .public)")
                     
                     withAnimation {
-                        
+                        // Dismiss view on tap of back button
                         presentationMode.wrappedValue.dismiss()
                         
                     }
@@ -121,40 +133,58 @@ struct ProductDetailView: View, OrientationListnerProtocol {
             }
             .padding(.bottom, 10)
             .toolbar {
-                
+                // Added bottom toolbar button for add review.
                 ToolbarItem(placement: .bottomBar) {
                     
+                    // We can add SF Symbol instead of text
                     Button("Add review") {
                         
-                        LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Add review tapped: \(self.productViewModel.id, privacy: .public)")
+                        LogManager.shared.uiLogger.log(level: .info, "[Adidas] Add review tapped: \(self.productViewModel.id, privacy: .public)")
                         
+                        // Show add product rating view on toggle
                         showAddRatingView.toggle()
                         
                     }
                 }
             }
-            .navigationBarHidden(true)
+            .navigationBarHidden(true) // Hide navigation bar
         }
         .onAppear {
+            // Confirm to orientation change listner
             OrientationListner.shared.listners.append(self)
         }
         .onDisappear {
-            OrientationListner.shared.listners.removeLast()
+            // Remove orientation listening as its disappearing.
+            if let index = OrientationListner.shared.find(value: self) {
+                if index < OrientationListner.shared.listners.count {
+                    OrientationListner.shared.listners.remove(at: index)
+                }
+            }
         }
         .sheet(isPresented: $showAddRatingView,
                onDismiss: {
                 self.showAddRatingView = false
                })
         {
+            // Show AddProductReview view
             AddProductReview(productViewModel:self.productViewModel)
         }
     }
     
+    // OrientationListnerProtocol method
     func orientationChanged() {
+        // Its called when orintation changes
         
+        // Update orientation state property
         orientation = UIDevice.current.orientation
         
-        LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
+        LogManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
+    }
+}
+
+extension ProductDetailView : Equatable {
+    static func == (lhs: ProductDetailView, rhs: ProductDetailView) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }
 

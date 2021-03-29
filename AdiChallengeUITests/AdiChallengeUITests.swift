@@ -39,8 +39,13 @@ class AdiChallengeUITests: XCTestCase {
         let enterSearchTextField = app.textFields["enterSearchTextField"]
         
         XCTAssertNotNil(enterSearchTextField)
-        XCTAssertEqual(enterSearchTextField.placeholderValue as! String, "Search your adidas products", "Search textfield placeholderValue is not correct")
+        
         XCTAssert(enterSearchTextField.exists)
+        
+        if let placeholderValue = enterSearchTextField.placeholderValue {
+            XCTAssertEqual(placeholderValue, "Search your adidas products", "Search textfield placeholderValue is not correct")
+        }
+        
         addScreenshot(screenshot: app.windows.firstMatch.screenshot())
         
         enterSearchTextField.tap()

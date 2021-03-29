@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Model class for product
 struct Product: Codable, Identifiable, CustomStringConvertible {
     
     var description: String {

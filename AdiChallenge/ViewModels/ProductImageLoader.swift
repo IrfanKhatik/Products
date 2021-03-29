@@ -11,41 +11,53 @@ import UIKit
 
 class ProductImageLoader: ObservableObject {
     
+    // Published property for downloaded and prepared UImage.
     @Published var image: UIImage?
     
+    // Serial image downloading queue.
     private static let imageDownloadingQueue = DispatchQueue(label: "com.adichallenge.image-downloading.queue")
     
-    private(set) var isLoading = false
+    // Downloading status
+    private(set) var isDownloading = false
     
-    private let url: URL
+    // Image url for download
+    private let url: URL?
     
+    // Cache image after download.
     private var cache: ProductImageCache?
     
+    // Cancellable for download image datatask publisher.
     private var cancellable: AnyCancellable?
     
-    init(url: URL, cache: ProductImageCache? = nil) {
+    init(url: URL?, cache: ProductImageCache? = nil) {
         self.url    = url
         self.cache  = cache
     }
     
     deinit {
         
-        cancel()
+        cancellable?.cancel()
         
     }
     
+    // Fetch image from network request
     func load() {
-        guard !isLoading else { return }
         
+        guard !isDownloading else { return }
+        
+        guard let url = url else { return }
+        
+        // Provide cached image if available.
         if let image = cache?[url] {
             
             self.image = image
             
-            LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image cached available: \(self.url.lastPathComponent, privacy: .public)")
+            LogManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image cached available: \(url.lastPathComponent, privacy: .public)")
             
             return
         }
         
+        // Download image datatask publisher.
         cancellable = URLSession.shared.dataTaskPublisher(for: url)
             .map { UIImage(data: $0.data) }
             .replaceError(with: nil)
@@ -59,34 +71,46 @@ class ProductImageLoader: ObservableObject {
             .sink { [weak self] in self?.image = $0 }
     }
     
+    // On cancel image download datatask publisher
     func cancel() {
+        
+        // Reset isLoading flag
+        isDownloading = false
         
         cancellable?.cancel()
         
-        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download cancelled: \(self.url.lastPathComponent, privacy: .public)")
+        LogManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download cancelled: \(self.url?.lastPathComponent ?? "", privacy: .public)")
         
     }
     
+    // On start image download datatask.
     private func onStart() {
         
-        isLoading = true
+        // Set isLoading flag
+        isDownloading = true
         
-        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download started: \(self.url.lastPathComponent, privacy: .public)")
+        LogManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download started: \(self.url?.lastPathComponent ?? "", privacy: .public)")
         
     }
     
+    // On finish image download datatask.
     private func onFinish() {
         
-        isLoading = false
+        // Reset isLoading flag
+        isDownloading = false
         
-        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download finished: \(self.url.lastPathComponent, privacy: .public)")
+        LogManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image download finished: \(self.url?.lastPathComponent ?? "", privacy: .public)")
         
     }
     
+    // On reciev image download output from datatask publisher.
     private func cache(_ image: UIImage?) {
         
+        guard let url = url else { return }
+        
+        // Cache image for given url. Maximum 100 MB allowed.
         image.map { cache?[url] = $0 }
         
-        LoggerManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image downloaded cache: \(self.url.lastPathComponent, privacy: .public)")
+        LogManager.shared.defaultLogger.log(level: .debug, "[Adidas] Image downloaded cache: \(url.lastPathComponent, privacy: .public)")
     }
 }

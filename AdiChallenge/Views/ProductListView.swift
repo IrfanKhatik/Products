@@ -9,11 +9,17 @@ import SwiftUI
 
 struct ProductListView: View, OrientationListnerProtocol {
     
+    // To match equatable for OrientationListnerProtocol
+    var identifier : String = UUID().uuidString
+    
+    // SateObject property for ProductListViewModel which requires to fetch products, search products
     @StateObject private var viewModel = ProductListViewModel()
     
+    // State property to update orientation change.
     @State private var orientation = UIDevice.current.orientation
     
-    var searchWidth: CGFloat {
+    // Computed property for search textfield width based on orientation
+    private var searchWidth: CGFloat {
         
         if orientation == .portrait  {
             return UIScreen.main.bounds.width * 0.9
@@ -28,6 +34,7 @@ struct ProductListView: View, OrientationListnerProtocol {
             
             HStack {
                 
+                // Add Search textfield on view as top
                 TextField("Search your adidas products", text: $viewModel.searchText)
                     .padding(.horizontal, 40)
                     .frame(width: searchWidth, height: 45,
@@ -52,12 +59,17 @@ struct ProductListView: View, OrientationListnerProtocol {
             
             ScrollView {
                 
+                // Added lazy VStack inside scroll view
                 LazyVStack(alignment: .leading) {
                     
+                    // Add products viewmodels view
+                    // If search field has text, then it will show filtered products viewmodels view
+                    // Else fetched products viewmodels view
                     ForEach(viewModel.searchText.count > 0 ?
                                 viewModel.filterProductViewModels :
                                 viewModel.productViewModels, id:\.id) { productViewModel in
                         
+                        // Prepare and show product view as cell
                         ProductListViewCell(productViewModel: productViewModel)
                         
                     }
@@ -68,27 +80,47 @@ struct ProductListView: View, OrientationListnerProtocol {
         .padding(.bottom, 10)
         .onAppear {
             
-            OrientationListner.shared.listners.append(self)
+            // Confirm to orientation change listner
+            OrientationListner.shared.listners.insert(self, at: 0)
             
-            LoggerManager.shared.defaultLogger.log(level: .info, "[Adidas] Fetch Products.")
+            LogManager.shared.defaultLogger.log(level: .info, "[Adidas] Fetch Products.")
             
+            // Fetch products network REST api call
             viewModel.fetchProducts()
         }
         .alert(isPresented: $viewModel.isErrorPresented) {
             
-            LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Product error alert shown")
+            LogManager.shared.uiLogger.log(level: .info, "[Adidas] Product error alert shown")
             
+            // Show alert on fetch products network REST api call error
             return Alert(title: Text("Network Error"),
                          message: Text(viewModel.errorResponse),
                          dismissButton: .default(Text("Ok")))
         }
+        .onDisappear {
+            // Remove orientation listening as its disappearing.
+            if let index = OrientationListner.shared.find(value: self) {
+                if index < OrientationListner.shared.listners.count {
+                    OrientationListner.shared.listners.remove(at: index)
+                }
+            }
+        }
     }
     
+    // OrientationListnerProtocol method
     func orientationChanged() {
+        // Its called when orintation changes
         
+        // Update orientation state property
         orientation = UIDevice.current.orientation
         
-        LoggerManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
+        LogManager.shared.uiLogger.log(level: .debug, "[Adidas] Device orientation changed: \(orientation.rawValue, privacy: .public)")
+    }
+}
+
+extension ProductListView : Equatable {
+    static func == (lhs: ProductListView, rhs: ProductListView) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }
 

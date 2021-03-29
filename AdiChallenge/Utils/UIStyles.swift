@@ -14,6 +14,7 @@ extension Text {
     }
 }
 
+// Title TextStyle
 struct ProductTitleTextStyle: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
     
@@ -27,6 +28,7 @@ struct ProductTitleTextStyle: ViewModifier {
     }
 }
 
+// Description TextStyle
 struct ProductDesciptionTextStyle: ViewModifier {
     @Environment(\.colorScheme) var colorScheme
     

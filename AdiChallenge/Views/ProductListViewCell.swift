@@ -9,16 +9,19 @@ import SwiftUI
 
 struct ProductListViewCell: View {
     
+    // Observable property for ProductViewModel to provide product values.
     @ObservedObject var productViewModel : ProductViewModel
     
-    @State private var isPresented = false
+    // State Property for showing ProductDetailView view or not
+    @State private var isProductDetailPresented = false
     
     init(productViewModel: ProductViewModel) {
-        
+        // Dependancy injection
         self.productViewModel = productViewModel
         
     }
     
+    // Calculate product image size
     private var imageSize: CGFloat {
         var lesserSize =  UIScreen.main.bounds.width
         if lesserSize > UIScreen.main.bounds.height {
@@ -32,16 +35,17 @@ struct ProductListViewCell: View {
         
         HStack {
             
+            // Add product image
             ProductImageView(
                 url: URL(string: self.productViewModel.imageUrl)!,
                 
                 placeholder: {
-                    
+                    // Show progressview until image downloaded as placeholder
                     ProgressView()
                         .scaleEffect(1.5, anchor: .center) },
                 
                 image: {
-                    
+                    // Show image once image downloaded and cached
                     Image(uiImage: $0)
                         .resizable()
                     
@@ -52,15 +56,18 @@ struct ProductListViewCell: View {
             
             VStack(alignment:.leading) {
                 
+                // Add product name
                 Text(productViewModel.name)
                     .textStyle(ProductTitleTextStyle())
                     .padding(EdgeInsets(top: 10, leading: 5, bottom: 5, trailing: 5))
                 
+                // Add product desc
                 Text(productViewModel.desc)
                     .textStyle(ProductDesciptionTextStyle())
                     .lineLimit(3)
                     .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 
+                // Add product formatted price based on currency
                 Text(productViewModel.formattedPrice)
                     .textStyle(ProductDesciptionTextStyle())
                     .padding(EdgeInsets(top: 5, leading: 5, bottom: 10, trailing: 5))
@@ -68,12 +75,14 @@ struct ProductListViewCell: View {
         }
         .onTapGesture {
             
-            LoggerManager.shared.uiLogger.log(level: .info, "[Adidas] Product selected: \(self.productViewModel.id, privacy: .private(mask: .hash))")
+            LogManager.shared.uiLogger.log(level: .info, "[Adidas] Product selected: \(self.productViewModel.id, privacy: .private(mask: .hash))")
             
-            isPresented.toggle()
+            // Show product detail view on tap
+            isProductDetailPresented.toggle()
         }
-        .fullScreenCover(isPresented: $isPresented) {
+        .fullScreenCover(isPresented: $isProductDetailPresented) {
             
+            // Present full screen product detail view.
             ProductDetailView(productViewModel: productViewModel)
             
         }

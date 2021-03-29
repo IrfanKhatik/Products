@@ -49,7 +49,7 @@ class APITests: XCTestCase {
         let completionExpectation = self.expectation(description: "until api value is called")
         
         var GETFinished = false
-        NetworkService().fetchProducts()
+        NetworkService.shared.fetchProducts()
             .sink(receiveCompletion: { completion in
                 
                 XCTAssertNotNil(completion)
@@ -95,7 +95,7 @@ class APITests: XCTestCase {
         let completionExpectation = self.expectation(description: "until api value is called")
         
         var GETFinished = false
-        NetworkService().fetchProducts()
+        NetworkService.shared.fetchProducts()
             .sink(receiveCompletion: { completion in
                 
                 XCTAssertNotNil(completion)
@@ -142,7 +142,7 @@ class APITests: XCTestCase {
         let completionExpectation = self.expectation(description: "until api completion is called")
         
         var GETFinished = false
-        NetworkService().fetchProducts()
+        NetworkService.shared.fetchProducts()
             .sink(receiveCompletion: { completion in
                 
                 XCTAssertNotNil(completion)
@@ -193,9 +193,9 @@ class APITests: XCTestCase {
         
         var POSTFinished = false
         
-        let review = Review(id: "productId", locale: "locale", rating: 5, text: "Awesome adidas product.")
+        let review = Review(id: "productId", locale: "en_US", rating: 5, text: "Awesome adidas product.")
         
-        NetworkService().submitReview(review)
+        NetworkService.shared.submitReview(review)
             .sink(receiveCompletion: { completion in
                 
                 XCTAssertNotNil(completion)

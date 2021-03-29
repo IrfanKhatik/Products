@@ -14,10 +14,12 @@ struct ProductImageCacheKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
+    
     var productImageCache: ProductImageCache {
         
         get { self[ProductImageCacheKey.self] }
         
         set { self[ProductImageCacheKey.self] = newValue }
     }
+    
 }
