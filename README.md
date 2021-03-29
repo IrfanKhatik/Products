@@ -1,4 +1,5 @@
 # Products
+
 **** Adidas Product Listing *****
 
 Using SwiftUI + Combine implemented demo project.
@@ -14,5 +15,3 @@ Development Tool: Xcode 12.4
 Unit Test : Added few XCTests
 
 Dependancy: OHHTTPStubs through Swift Package Manager
-
-Remaining:  Documentation and comments.
