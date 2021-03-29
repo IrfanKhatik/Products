@@ -27,11 +27,19 @@
 		0161B583260EB8AF00FE83DA /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B582260EB8AF00FE83DA /* Review.swift */; };
 		0161B586260EBAF300FE83DA /* ProductRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B585260EBAF300FE83DA /* ProductRatingView.swift */; };
 		0161B58B260EF09400FE83DA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161B58A260EF09400FE83DA /* Constants.swift */; };
+		016F6F262611317B008D0FAC /* AdiChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016F6F252611317B008D0FAC /* AdiChallengeTests.swift */; };
 		018A397B260F9F120005F7D6 /* LoggerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018A397A260F9F120005F7D6 /* LoggerManager.swift */; };
 		01EB42F12611242E0098C30E /* AdiChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EB42F02611242E0098C30E /* AdiChallengeUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		016F6F282611317B008D0FAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0143CE73260E56D4007DA2F0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0143CE7A260E56D4007DA2F0;
+			remoteInfo = AdiChallenge;
+		};
 		01EB42F32611242E0098C30E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0143CE73260E56D4007DA2F0 /* Project object */;
@@ -64,6 +72,9 @@
 		0161B582260EB8AF00FE83DA /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		0161B585260EBAF300FE83DA /* ProductRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRatingView.swift; sourceTree = "<group>"; };
 		0161B58A260EF09400FE83DA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		016F6F232611317B008D0FAC /* AdiChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdiChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		016F6F252611317B008D0FAC /* AdiChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdiChallengeTests.swift; sourceTree = "<group>"; };
+		016F6F272611317B008D0FAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		018A397A260F9F120005F7D6 /* LoggerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerManager.swift; sourceTree = "<group>"; };
 		01EB42EE2611242E0098C30E /* AdiChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdiChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		01EB42F02611242E0098C30E /* AdiChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdiChallengeUITests.swift; sourceTree = "<group>"; };
@@ -72,6 +83,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		0143CE78260E56D4007DA2F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		016F6F202611317B008D0FAC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -93,6 +111,7 @@
 			children = (
 				0143CE7D260E56D4007DA2F0 /* AdiChallenge */,
 				01EB42EF2611242E0098C30E /* AdiChallengeUITests */,
+				016F6F242611317B008D0FAC /* AdiChallengeTests */,
 				0143CE7C260E56D4007DA2F0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,6 +121,7 @@
 			children = (
 				0143CE7B260E56D4007DA2F0 /* AdiChallenge.app */,
 				01EB42EE2611242E0098C30E /* AdiChallengeUITests.xctest */,
+				016F6F232611317B008D0FAC /* AdiChallengeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -191,6 +211,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		016F6F242611317B008D0FAC /* AdiChallengeTests */ = {
+			isa = PBXGroup;
+			children = (
+				016F6F252611317B008D0FAC /* AdiChallengeTests.swift */,
+				016F6F272611317B008D0FAC /* Info.plist */,
+			);
+			path = AdiChallengeTests;
+			sourceTree = "<group>";
+		};
 		018A3979260F9EE30005F7D6 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +257,24 @@
 			productReference = 0143CE7B260E56D4007DA2F0 /* AdiChallenge.app */;
 			productType = "com.apple.product-type.application";
 		};
+		016F6F222611317B008D0FAC /* AdiChallengeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 016F6F2C2611317B008D0FAC /* Build configuration list for PBXNativeTarget "AdiChallengeTests" */;
+			buildPhases = (
+				016F6F1F2611317B008D0FAC /* Sources */,
+				016F6F202611317B008D0FAC /* Frameworks */,
+				016F6F212611317B008D0FAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				016F6F292611317B008D0FAC /* PBXTargetDependency */,
+			);
+			name = AdiChallengeTests;
+			productName = AdiChallengeTests;
+			productReference = 016F6F232611317B008D0FAC /* AdiChallengeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		01EB42ED2611242E0098C30E /* AdiChallengeUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 01EB42F72611242E0098C30E /* Build configuration list for PBXNativeTarget "AdiChallengeUITests" */;
@@ -258,6 +305,10 @@
 					0143CE7A260E56D4007DA2F0 = {
 						CreatedOnToolsVersion = 12.4;
 					};
+					016F6F222611317B008D0FAC = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 0143CE7A260E56D4007DA2F0;
+					};
 					01EB42ED2611242E0098C30E = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 0143CE7A260E56D4007DA2F0;
@@ -278,6 +329,7 @@
 			projectRoot = "";
 			targets = (
 				0143CE7A260E56D4007DA2F0 /* AdiChallenge */,
+				016F6F222611317B008D0FAC /* AdiChallengeTests */,
 				01EB42ED2611242E0098C30E /* AdiChallengeUITests */,
 			);
 		};
@@ -290,6 +342,13 @@
 			files = (
 				0143CE86260E56D4007DA2F0 /* Preview Assets.xcassets in Resources */,
 				0143CE83260E56D4007DA2F0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		016F6F212611317B008D0FAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +388,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		016F6F1F2611317B008D0FAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				016F6F262611317B008D0FAC /* AdiChallengeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		01EB42EA2611242E0098C30E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -340,6 +407,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		016F6F292611317B008D0FAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0143CE7A260E56D4007DA2F0 /* AdiChallenge */;
+			targetProxy = 016F6F282611317B008D0FAC /* PBXContainerItemProxy */;
+		};
 		01EB42F42611242E0098C30E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0143CE7A260E56D4007DA2F0 /* AdiChallenge */;
@@ -508,6 +580,46 @@
 			};
 			name = Release;
 		};
+		016F6F2A2611317B008D0FAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YSZYL893PN;
+				INFOPLIST_FILE = AdiChallengeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.itianservices.AdiChallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdiChallenge.app/AdiChallenge";
+			};
+			name = Debug;
+		};
+		016F6F2B2611317B008D0FAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YSZYL893PN;
+				INFOPLIST_FILE = AdiChallengeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.itianservices.AdiChallengeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AdiChallenge.app/AdiChallenge";
+			};
+			name = Release;
+		};
 		01EB42F52611242E0098C30E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -563,6 +675,15 @@
 			buildConfigurations = (
 				0143CE8B260E56D4007DA2F0 /* Debug */,
 				0143CE8C260E56D4007DA2F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		016F6F2C2611317B008D0FAC /* Build configuration list for PBXNativeTarget "AdiChallengeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				016F6F2A2611317B008D0FAC /* Debug */,
+				016F6F2B2611317B008D0FAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
