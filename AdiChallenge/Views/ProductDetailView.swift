@@ -66,6 +66,17 @@ struct ProductDetailView: View, OrientationListnerProtocol {
                             .fixedSize(horizontal: false, vertical: true)
                             .padding(.leading, 10)
                             
+                            if self.productViewModel.discount > 0 {
+                                HStack {
+                                    Spacer()
+                                
+                                    // Add product discount
+                                    Text(self.productViewModel.formattedDiscount)
+                                        .textStyle(ProductTitleTextStyle())
+                                }
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding(.trailing, 10)
+                            }
                         }
                         .padding(.bottom, 5)
                         
@@ -200,7 +211,8 @@ struct ProductDetailView_Previews: PreviewProvider {
                                                                      desc: "description",
                                                                      price: 25.0,
                                                                      currency: "nl_NL",
-                                                                     reviews: reviews)))
+                                                                     reviews: reviews,
+                                                                     discount: 10.0)))
             .environment(\.sizeCategory, .extraSmall)
     }
 }

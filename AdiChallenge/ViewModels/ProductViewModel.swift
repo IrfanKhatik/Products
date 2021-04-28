@@ -67,9 +67,6 @@ class ProductViewModel: ObservableObject, Identifiable {
     // Prepare price with provided currrency else empty
     var formattedPrice: String {
         
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .currency
-        
         guard
             let locale = product.currency,
               !locale.isEmpty,
@@ -77,7 +74,9 @@ class ProductViewModel: ObservableObject, Identifiable {
             return ""
         }
         
-        numberFormatter.locale  = Locale(identifier: locale)
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.locale      = Locale(identifier: locale)
         
         guard
             let price = self.price,
@@ -100,6 +99,37 @@ class ProductViewModel: ObservableObject, Identifiable {
         
         return product.reviews ?? []
         
+    }
+    
+    // Computed property for product discount.
+    var discount: Double {
+        
+        guard let discount = product.discount, discount > 0.0 else {
+            return 0.0
+        }
+        
+        return discount
+        
+    }
+    
+    // Computed property for formatted product discount.
+    var formattedDiscount: String {
+        
+        guard self.discount > 0.0 else {
+            return "0%"
+        }
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = NumberFormatter.Style.decimal
+        formatter.roundingMode = NumberFormatter.RoundingMode.halfUp // Rounding of to half
+        formatter.maximumFractionDigits = 2
+        
+        guard
+            let formattedDiscount = formatter.string(from: NSNumber(value: self.discount)) else {
+            return "0%"
+        }
+        
+        return "\(formattedDiscount)%"
     }
     
     // Submit review over network REST api.

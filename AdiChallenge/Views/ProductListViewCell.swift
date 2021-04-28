@@ -67,10 +67,19 @@ struct ProductListViewCell: View {
                     .lineLimit(3)
                     .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 
-                // Add product formatted price based on currency
-                Text(productViewModel.formattedPrice)
-                    .textStyle(ProductDesciptionTextStyle())
-                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 10, trailing: 5))
+                HStack {
+                    // Add product formatted price based on currency
+                    Text(productViewModel.formattedPrice)
+                        .textStyle(ProductDesciptionTextStyle())
+                        .padding(EdgeInsets(top: 5, leading: 5, bottom: 10, trailing: 5))
+                
+                    // Add product discount
+                    if productViewModel.discount > 0.0 {
+                        Text(productViewModel.formattedDiscount)
+                            .textStyle(ProductTitleTextStyle())
+                            .padding(EdgeInsets(top: 5, leading: 5, bottom: 10, trailing: 5))
+                    }
+                }
             }
         }
         .onTapGesture {
@@ -104,7 +113,8 @@ struct ProductViewCell_Previews: PreviewProvider {
                                                                            desc: "Y-3 GR.1P HIGH GTX",
                                                                            price: 12,
                                                                            currency: "en_US",
-                                                                           reviews: reviews)))
+                                                                           reviews: reviews,
+                                                                           discount: 10.0)))
         }
     }
 }

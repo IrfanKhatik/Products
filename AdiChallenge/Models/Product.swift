@@ -20,6 +20,7 @@ struct Product: Codable, Identifiable, CustomStringConvertible {
         description     += "price: \(self.price ?? 0.0)\n"
         description     += "currency: \(self.currency ?? "")\n"
         description     += "reviews: \(self.reviews?.description ?? "")\n"
+        description     += "discount: \(self.discount ?? 0.0)"
         
         return description
         
@@ -32,6 +33,7 @@ struct Product: Codable, Identifiable, CustomStringConvertible {
     let price: Double?
     let currency: String?
     var reviews: [Review]?
+    var discount: Double?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -41,6 +43,7 @@ struct Product: Codable, Identifiable, CustomStringConvertible {
         case price
         case currency
         case reviews
+        case discount
     }
     
     mutating func addNewReview(_ review: Review) {

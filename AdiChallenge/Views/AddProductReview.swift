@@ -186,7 +186,8 @@ struct AddProductReview_Previews: PreviewProvider {
                                                                         desc: "description",
                                                                         price: 0,
                                                                         currency: "",
-                                                                        reviews: [])))
+                                                                        reviews: [],
+                                                                        discount: 10.0)))
                 .preferredColorScheme(.dark)
         }
     }

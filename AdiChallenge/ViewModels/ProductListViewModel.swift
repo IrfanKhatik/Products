@@ -82,18 +82,21 @@ class ProductListViewModel: ObservableObject {
                 return string
             })
             .compactMap{ $0 }
-            .sink { [weak self] (_) in
+            .sink { (_) in
                 //
-            } receiveValue: { [self] (searchField) in
+            } receiveValue: { [weak self] (searchField) in
                 // Search products on text change.
-                searchProducts(searchText: searchField)
+                self?.searchProducts(searchText: searchField)
                 
             }.store(in: &cancellables)
     }
     
     deinit {
         cancellable?.cancel()
-        cancellables.compactMap{ $0.cancel() }
+        
+        cancellables.forEach { cancellable in
+            cancellable.cancel()
+        }
     }
     
     // Search products based on name or desc find for searchText.
