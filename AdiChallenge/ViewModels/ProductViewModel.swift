@@ -121,7 +121,7 @@ class ProductViewModel: ObservableObject, Identifiable {
         
         let formatter = NumberFormatter()
         formatter.numberStyle = NumberFormatter.Style.decimal
-        formatter.roundingMode = NumberFormatter.RoundingMode.halfUp // Rounding of to half
+        // formatter.roundingMode = NumberFormatter.RoundingMode.halfUp // Rounding of to half
         formatter.maximumFractionDigits = 2
         
         guard

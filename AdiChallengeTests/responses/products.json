@@ -2,6 +2,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "FI444",
     "name": "product",
     "description": "description",
@@ -54,6 +55,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI333",
     "name": "product",
     "description": "description",
@@ -106,6 +108,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 20,
     "id": "HI334",
     "name": "product",
     "description": "description",
@@ -158,6 +161,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI336",
     "name": "product",
     "description": "description",
@@ -210,6 +214,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI337",
     "name": "product",
     "description": "description",
@@ -262,6 +267,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI338",
     "name": "product",
     "description": "description",
@@ -314,6 +320,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI339",
     "name": "product",
     "description": "description",
@@ -366,6 +373,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI340",
     "name": "product",
     "description": "description",
@@ -418,6 +426,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI341",
     "name": "product",
     "description": "description",
@@ -470,6 +479,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI342",
     "name": "product",
     "description": "description",
@@ -522,6 +532,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI343",
     "name": "product",
     "description": "description",
@@ -574,6 +585,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI344",
     "name": "product",
     "description": "description",
@@ -626,6 +638,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI345",
     "name": "product",
     "description": "description",
@@ -678,6 +691,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI346",
     "name": "product",
     "description": "description",
@@ -730,6 +744,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 10.0,
     "id": "HI347",
     "name": "product",
     "description": "description",
@@ -782,6 +797,7 @@
   {
     "currency": "",
     "price": 0,
+    "discount": 0.0,
     "id": "HI348",
     "name": "product",
     "description": "description",

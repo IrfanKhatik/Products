@@ -28,7 +28,8 @@ class AdiChallengeTests: XCTestCase {
                               desc: "Athele shoes for swift runners.",
                               price: 200,
                               currency: "nl_NL",
-                              reviews: [])
+                              reviews: [],
+                              discount: 10)
         
         let productViewModel = ProductViewModel(product)
         
@@ -48,7 +49,8 @@ class AdiChallengeTests: XCTestCase {
                               desc: "Athele shoes for swift runners.",
                               price: 50,
                               currency: "",
-                              reviews: [])
+                              reviews: [],
+                              discount: 15)
         
         let productViewModel = ProductViewModel(product)
         
@@ -68,7 +70,8 @@ class AdiChallengeTests: XCTestCase {
                               desc: "Athele shoes for swift runners.",
                               price: 0.0,
                               currency: "nl_NL",
-                              reviews: [])
+                              reviews: [],
+                              discount: 5.0)
         
         let productViewModel = ProductViewModel(product)
         
@@ -86,7 +89,8 @@ class AdiChallengeTests: XCTestCase {
                               desc: "Athele shoes for swift runners.",
                               price: 0.0,
                               currency: "",
-                              reviews: [])
+                              reviews: [],
+                              discount: 20.0)
         
         let productViewModel = ProductViewModel(product)
         
@@ -104,7 +108,8 @@ class AdiChallengeTests: XCTestCase {
                               desc: "Athele shoes for swift runners.",
                               price: -100.0,
                               currency: "nl_NL",
-                              reviews: [])
+                              reviews: [],
+                              discount: 0.0)
         
         let productViewModel = ProductViewModel(product)
         
@@ -122,7 +127,8 @@ class AdiChallengeTests: XCTestCase {
                               desc: "Athele shoes for swift runners.",
                               price: 100,
                               currency: "un_XY",
-                              reviews: [])
+                              reviews: [],
+                              discount: 15.0)
         
         let productViewModel = ProductViewModel(product)
         
@@ -140,7 +146,8 @@ class AdiChallengeTests: XCTestCase {
                               desc: "Athele shoes for swift runners.",
                               price: -100.0,
                               currency: "nl_NL",
-                              reviews: [])
+                              reviews: [],
+                              discount: 30)
         
         let productViewModel = ProductViewModel(product)
         
